@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Netlify form declarations</title>
+    <meta name="robots" content="noindex,nofollow" />
+  </head>
+  <body>
+    <!--
+      Netlify detects forms by parsing static HTML at build time. The App Router
+      renders the real form with React, which that parser never sees, so this
+      file declares the form's shape for Netlify. The live form in
+      components/home/CohortForm.tsx POSTs here.
+      Keep the field names in sync with that component.
+    -->
+    <form name="new-waitlist-form" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="new-waitlist-form" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company" />
+      <input type="text" name="website" />
+    </form>
+  </body>
+</html>

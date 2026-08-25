@@ -1,0 +1,10 @@
+/*
+ * Intentionally minimal.
+ *
+ * Every route renders a captured page that ships its own complete stylesheet,
+ * so a global reset here would change how those pages render. Tailwind's
+ * preflight is disabled in tailwind.config.ts for the same reason; the utility
+ * layers stay available for any new UI built on top of these pages.
+ */
+@tailwind components;
+@tailwind utilities;

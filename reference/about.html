@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About BFunded</title>
+    <meta
+      name="description"
+      content="BFunded scores early-stage founders with automated due diligence and connects the ones who pass to investors who understand their sector."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BFunded" />
+    <meta property="og:title" content="About BFunded" />
+    <meta
+      property="og:description"
+      content="We score founders, not pitch decks."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --ink: #000;
+        --paper: #fff;
+        --muted: #8b8b8b;
+        --rule: rgba(255, 255, 255, 0.12);
+        --mint: #d6f2e4;
+        --accent: #3ec28f;
+      }
+      html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        background: var(--ink);
+        color: var(--paper);
+        font-family: "DM Sans", Inter, Arial, sans-serif;
+        font-weight: 400;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      img,
+      video {
+        max-width: 100%;
+        display: block;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      /* nav */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(0, 0, 0, 0.82);
+        backdrop-filter: blur(14px);
+      }
+      .nav-in {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px 32px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .nav img {
+        height: 34px;
+      }
+      .nav-r {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        font-size: 15px;
+        color: #cfcfcf;
+      }
+      .nav-r a.l:hover {
+        color: #fff;
+      }
+      .nav-cta {
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 100px;
+        padding: 11px 24px;
+        font-size: 15px;
+        color: #fff;
+      }
+      .nav-cta:hover {
+        background: #fff;
+        color: #000;
+      }
+      @media (max-width: 860px) {
+        .nav-r a.l {
+          display: none;
+        }
+        .nav-in {
+          padding: 16px 22px;
+        }
+      }
+
+      /* hero */
+      .hero {
+        position: relative;
+        min-height: 78vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+      }
+      .hero > img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero .veil {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.6),
+          rgba(0, 0, 0, 0.45) 45%,
+          rgba(0, 0, 0, 0.85)
+        );
+      }
+      .hero .in {
+        position: relative;
+        padding: 120px 32px;
+      }
+      h1 {
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        line-height: 1.02;
+        font-size: clamp(44px, 7.2vw, 104px);
+      }
+      .hero p {
+        margin: 28px auto 0;
+        max-width: 620px;
+        font-size: clamp(17px, 1.5vw, 21px);
+        color: #c9c9c9;
+        font-weight: 400;
+      }
+
+      /* sections */
+      section {
+        padding: clamp(80px, 10vw, 150px) 0;
+        scroll-margin-top: 90px;
+      }
+      .eyebrow {
+        font-family: Inter, sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 22px;
+      }
+      h2 {
+        font-weight: 400;
+        letter-spacing: -0.025em;
+        line-height: 1.06;
+        font-size: clamp(34px, 5vw, 72px);
+      }
+      .lede {
+        margin-top: 26px;
+        max-width: 680px;
+        font-size: clamp(17px, 1.5vw, 21px);
+        color: #b4b4b4;
+        line-height: 1.6;
+      }
+
+      /* three-up, no boxes */
+      .trio {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(28px, 4vw, 64px);
+        margin-top: clamp(52px, 6vw, 88px);
+      }
+      .trio .n {
+        font-size: 15px;
+        color: var(--accent);
+        font-family: Inter, sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+      }
+      .trio h3 {
+        margin-top: 20px;
+        font-size: clamp(21px, 2vw, 28px);
+        font-weight: 400;
+        letter-spacing: -0.015em;
+        line-height: 1.25;
+      }
+      .trio p {
+        margin-top: 14px;
+        font-size: 16px;
+        color: #9a9a9a;
+        line-height: 1.65;
+      }
+      @media (max-width: 800px) {
+        .trio {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+      }
+
+      /* numbered steps as type, not boxes */
+      .steps {
+        margin-top: clamp(48px, 6vw, 80px);
+        border-top: 1px solid var(--rule);
+      }
+      .step {
+        display: grid;
+        grid-template-columns: 70px 1fr 200px;
+        gap: 28px;
+        align-items: baseline;
+        padding: clamp(26px, 3vw, 40px) 0;
+        border-bottom: 1px solid var(--rule);
+      }
+      .step .i {
+        font-family: Inter, sans-serif;
+        font-size: 14px;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+      }
+      .step h3 {
+        font-size: clamp(20px, 2.2vw, 32px);
+        font-weight: 400;
+        letter-spacing: -0.015em;
+      }
+      .step .r {
+        text-align: right;
+        font-size: 15px;
+        color: var(--accent);
+        font-family: Inter, sans-serif;
+        letter-spacing: 0.02em;
+      }
+      @media (max-width: 800px) {
+        .step {
+          grid-template-columns: 44px 1fr;
+          gap: 16px;
+        }
+        .step .r {
+          grid-column: 2;
+          text-align: left;
+          margin-top: 8px;
+        }
+      }
+
+      /* stat line */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(24px, 4vw, 56px);
+        margin-top: clamp(48px, 6vw, 80px);
+        border-top: 1px solid var(--rule);
+        padding-top: clamp(36px, 4vw, 56px);
+      }
+      .stat b {
+        display: block;
+        font-size: clamp(40px, 5.4vw, 76px);
+        font-weight: 300;
+        letter-spacing: -0.035em;
+        line-height: 1;
+      }
+      .stat span {
+        display: block;
+        margin-top: 14px;
+        font-size: 15px;
+        color: #9a9a9a;
+        line-height: 1.5;
+      }
+      @media (max-width: 800px) {
+        .stats {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+
+      /* team */
+      .team {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(24px, 3vw, 44px);
+        margin-top: clamp(52px, 6vw, 88px);
+      }
+      .person img {
+        width: 100%;
+        aspect-ratio: 0.82;
+        object-fit: cover;
+        border-radius: 4px;
+        filter: grayscale(100%);
+        transition: filter 0.5s ease;
+      }
+      .person:hover img {
+        filter: grayscale(0);
+      }
+      .person h3 {
+        margin-top: 24px;
+        font-size: clamp(20px, 1.8vw, 26px);
+        font-weight: 400;
+        letter-spacing: -0.015em;
+      }
+      .person .role {
+        margin-top: 6px;
+        font-family: Inter, sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .person p {
+        margin-top: 16px;
+        font-size: 15px;
+        color: #9a9a9a;
+        line-height: 1.65;
+      }
+      @media (max-width: 800px) {
+        .team {
+          grid-template-columns: 1fr;
+          gap: 48px;
+          max-width: 420px;
+        }
+      }
+
+      /* mint band */
+      .band {
+        background: var(--mint);
+        color: #0b0b0b;
+      }
+      .band .eyebrow {
+        color: #1d7a57;
+      }
+      .band .lede {
+        color: #3b4a44;
+      }
+
+      /* close */
+      .close {
+        text-align: center;
+      }
+      .close h2 {
+        max-width: 14ch;
+        margin: 0 auto;
+      }
+      .close .go {
+        display: inline-block;
+        margin-top: 44px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 100px;
+        padding: 19px 46px;
+        font-size: 17px;
+        letter-spacing: 0.01em;
+      }
+      .close .go:hover {
+        background: #fff;
+        color: #000;
+      }
+      .close .sub {
+        margin-top: 22px;
+        font-size: 15px;
+        color: var(--muted);
+      }
+
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 56px 0 72px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      footer .fin {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      footer .disc {
+        max-width: 720px;
+        margin-bottom: 26px;
+        line-height: 1.7;
+      }
+
+      .rise {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.8s cubic-bezier(0.22, 0.75, 0.2, 1),
+          transform 0.8s cubic-bezier(0.22, 0.75, 0.2, 1);
+      }
+      .rise.on {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .rise {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-in">
+        <a href="https://www.bfunded.io/"
+          ><img src="assets/home/logo-white.svg" alt="BFunded"
+        /></a>
+        <div class="nav-r">
+          <a href="#what" class="l">What We Do</a>
+          <a href="#how" class="l">How It Works</a>
+          <a href="#team" class="l">Team</a>
+          <a href="mailto:hello@bfunded.io" class="nav-cta">Get In Touch</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <img src="assets/home/band-forest.jpg" alt="" />
+      <div class="veil"></div>
+      <div class="in">
+        <h1 class="rise">We Score Founders.<br />Not Pitch Decks.</h1>
+        <p class="rise">
+          A founder gets scored in minutes, free. Full due diligence is earned
+          after that &mdash; they pass tests, level up, and reach investors who
+          understand their sector as the evidence builds.
+        </p>
+      </div>
+    </header>
+
+    <section id="what">
+      <div class="wrap">
+        <div class="eyebrow rise">What We Do</div>
+        <h2 class="rise">Three things, and nothing else.</h2>
+        <div class="trio">
+          <div class="rise">
+            <div class="n">01</div>
+            <h3>A score in minutes, free</h3>
+            <p>
+              A founder uploads a deck and a website. Our system reads it and
+              returns a score straight away, at no cost. That is where diligence
+              starts, not where it ends.
+            </p>
+          </div>
+          <div class="rise">
+            <div class="n">02</div>
+            <h3>We assess the founder</h3>
+            <p>
+              Fundability is a quality of the person, not the pitch. We look at
+              what a founder has actually done, not how well they present it.
+            </p>
+          </div>
+          <div class="rise">
+            <div class="n">03</div>
+            <h3>We introduce them properly</h3>
+            <p>
+              Founders who pass reach investors with real experience in their
+              sector, not a mailing list. Relevance is the whole point.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="band">
+      <div class="wrap">
+        <div class="eyebrow rise">How It Works</div>
+        <h2 class="rise" style="max-width: 16ch">
+          Access is earned, one step at a time.
+        </h2>
+        <p class="lede rise">
+          Nothing is bought. Each stage a founder completes opens a wider circle
+          of investors, and the circle only widens when the evidence does.
+        </p>
+        <div class="steps" style="border-color: rgba(0, 0, 0, 0.14)">
+          <div class="step rise" style="border-color: rgba(0, 0, 0, 0.14)">
+            <div class="i" style="color: #5f7269">01</div>
+            <h3>Deck and website uploaded</h3>
+            <div class="r" style="color: #1d7a57">100 investors</div>
+          </div>
+          <div class="step rise" style="border-color: rgba(0, 0, 0, 0.14)">
+            <div class="i" style="color: #5f7269">02</div>
+            <h3>First diligence tests passed</h3>
+            <div class="r" style="color: #1d7a57">1,000 investors</div>
+          </div>
+          <div class="step rise" style="border-color: rgba(0, 0, 0, 0.14)">
+            <div class="i" style="color: #5f7269">03</div>
+            <h3>Five calls scheduled</h3>
+            <div class="r" style="color: #1d7a57">5,000 investors</div>
+          </div>
+          <div class="step rise" style="border-color: rgba(0, 0, 0, 0.14)">
+            <div class="i" style="color: #5f7269">04</div>
+            <h3>First investor closed</h3>
+            <div class="r" style="color: #1d7a57">20,000 investors</div>
+          </div>
+          <div class="step rise" style="border-color: rgba(0, 0, 0, 0.14)">
+            <div class="i" style="color: #5f7269">05</div>
+            <h3>Three investors closed</h3>
+            <div class="r" style="color: #1d7a57">Full network</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="eyebrow rise">The Network</div>
+        <h2 class="rise" style="max-width: 18ch">
+          Reach gets a founder seen. Expertise gets them funded.
+        </h2>
+        <p class="lede rise">
+          A founder does not need a million investors. They need the few hundred
+          who understand what they are building, and who have written cheques in
+          that sector before.
+        </p>
+        <div class="stats">
+          <div class="stat rise">
+            <b>1M+</b><span>Investors in the network</span>
+          </div>
+          <div class="stat rise">
+            <b>50K</b><span>Industry-expert angels inside it</span>
+          </div>
+          <div class="stat rise">
+            <b>1 in 12</b><span>Calls that convert for founders who pass</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="wrap">
+        <div class="eyebrow rise">Who We Are</div>
+        <h2 class="rise">Built by people who have raised.</h2>
+        <div class="team">
+          <div class="person rise">
+            <img src="assets/home/jeff-io.png" alt="Jeff Wenzel" />
+            <h3>Jeff Wenzel</h3>
+            <div class="role">Chief Executive Officer</div>
+            <p>
+              170+ equity crowdfunding campaigns over a decade. $100M+ raised
+              for early-stage founders. 300+ Kickstarter launches and 850K+
+              investors reached.
+            </p>
+          </div>
+          <div class="person rise">
+            <img src="assets/home/will-io.png" alt="William DiRicco" />
+            <h3>William DiRicco</h3>
+            <div class="role">Chief Operating Officer</div>
+            <p>
+              $11M raised for early-stage companies and 10× returned to early
+              investors through secondaries. $15M in brand deals with Gucci,
+              Nike and Ray-Ban.
+            </p>
+          </div>
+          <div class="person rise">
+            <img src="assets/home/anthony-crop.jpg" alt="Anthony Cargill" />
+            <h3>Anthony Cargill</h3>
+            <div class="role">Chief Marketing Officer</div>
+            <p>
+              12+ years scaling startups and agencies. Go-to-market for a
+              unicorn AI security company, and cross-border commerce across the
+              US and Asia.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="close">
+      <div class="wrap">
+        <h2 class="rise">Work with BFunded.</h2>
+        <a class="go rise" href="mailto:hello@bfunded.io">Get in touch</a>
+        <div class="sub rise">Free for founders &middot; No cost to apply</div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <p class="disc">
+          BFunded is software and data only. We are not a broker-dealer, we
+          never custody funds, and we take no transaction-based compensation.
+          Nothing on this page is an offer to sell or a solicitation to buy
+          securities.
+        </p>
+        <div class="fin">
+          <span>&copy; 2026 BFunded</span><span>hello@bfunded.io</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var els = document.querySelectorAll(".rise");
+        if (!("IntersectionObserver" in window)) {
+          els.forEach(function (e) {
+            e.classList.add("on");
+          });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (es) {
+            es.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("on");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+        );
+        els.forEach(function (e) {
+          io.observe(e);
+        });
+        setTimeout(function () {
+          document.querySelectorAll(".rise:not(.on)").forEach(function (e) {
+            if (e.getBoundingClientRect().top < innerHeight * 1.3)
+              e.classList.add("on");
+          });
+        }, 900);
+      })();
+    </script>
+  </body>
+</html>
