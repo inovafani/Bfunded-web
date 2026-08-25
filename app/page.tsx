@@ -26,8 +26,16 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  // Optional Google Apps Script endpoint. The waitlist form reads this meta tag
+  // and mirrors each submission to a Google Sheet (which also emails the team).
+  // Unset = the form still works; it just skips the mirror.
+  const sheetsEndpoint = process.env.NEXT_PUBLIC_SHEETS_ENDPOINT;
+
   return (
     <>
+      {sheetsEndpoint ? (
+        <meta name="bf-sheets-endpoint" content={sheetsEndpoint} />
+      ) : null}
       {/* Same stylesheet order as the original head: Webflow's sheet, then
           Font Awesome. The page's own <style> blocks ride along in the markup
           and therefore still win the cascade. */}
