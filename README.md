@@ -6,7 +6,8 @@ app, ready for Netlify.
 | Route     | Reproduces                                            |
 | --------- | ----------------------------------------------------- |
 | `/`       | `home--bfunded-invest-mix.netlify.app` (Webflow)       |
-| `/about`  | `about--bfunded-invest-mix.netlify.app`                |
+| `/about`  | `public/contoh/about.html` (newer than the live deploy)                |
+| `/engine` | `public/contoh/engine.html` (newer than the live deploy)   |
 | `/invest` | `investor-v2--bfunded-invest-mix.netlify.app/?v=new`   |
 
 ```bash
@@ -33,9 +34,11 @@ This matters for two reasons:
 2. Each page keeps its own navbar, footer, fonts and palette, because the three
    originals never shared a design system.
 
-The captured sources live in `reference/` (outside `public/`, so they are not
-served). `app/_content/*.json` holds the extracted body markup that each page
-renders; regenerate those from `reference/` if the originals change.
+The captured sources live in `public/contoh/` -- they are the reference every
+route is generated from, so keep them. Being under `public/` means they are also
+served, so `robots.ts` disallows `/contoh/` to keep duplicate copies out of
+search results. `app/_content/*.json` holds the extracted body markup that each page
+renders; regenerate those from `public/contoh/` if the originals change.
 
 ### Verified fidelity
 
@@ -43,17 +46,18 @@ Each route was rendered in headless Chrome at 1440px and compared pixel-by-pixel
 against the original, with animations frozen on both sides (scroll reveals
 forced visible, marquee/carousel transforms pinned, videos paused at frame 0):
 
-| Route     | Page height | Mean pixel diff | Differing pixels |
-| --------- | ----------- | --------------- | ---------------- |
-| `/`       | 10550 px    | 0.0013          | 0.0024%          |
-| `/about`  | 5542 px     | 0.0024          | 0.0045%          |
-| `/invest` | 17028 px    | 0.0102          | 0.0065%          |
+| Route     | Page height | Differing pixels |
+| --------- | ----------- | ---------------- |
+| `/`       | 10550 px    | **0.0000%**      |
+| `/about`  | 11784 px    | **0.0000%**      |
+| `/engine` | 5466 px     | **0.0000%**      |
+| `/invest` | 17028 px    | 0.0052%          |
 
 Page heights match exactly. The remaining fractions of a percent are the native
 `<video>` control bar's buffering indicator and lazy-load timing, which differ
 between any two captures of the *same* page.
 
-All 151 images on `/` load (0 broken, 0 network failures), the `/invest` video
+All images load on every route (0 broken, 0 network failures), the `/invest` video
 reaches `readyState 4`, and the browser console is clean on every route. The
 only 404 is `/favicon.ico` on `/about` and `/invest` -- the originals have no
 favicon either, so they 404 identically.
@@ -88,6 +92,23 @@ way.
   form in `app/_content/home.json`.
 - **Root layout is bare** and Tailwind's preflight is disabled, so no reset can
   alter the reproduced pages.
+
+## Internal links
+
+The captured pages link to `https://www.bfunded.io/` and `https://bfunded.io/engine`
+as absolute URLs, which would walk a visitor out of this app (and break entirely
+on a Netlify preview domain). Five such links -- whose targets are routes that
+exist here -- were repointed at the local route and had `target="_blank"`
+removed:
+
+- `/` : 3x "The Engine" (desktop nav, mobile nav, footer) -> `/engine`
+- `/about` : logo -> `/`
+- `/engine` : logo -> `/`
+
+Every other outbound link is left untouched, because those pages
+(`/raise`, `/the-team`, `/terms-condition`, `/privacy-policy`, WeFunder, LinkedIn)
+do not exist in this app. Note that **nothing currently links to `/about`** -- no
+captured page has a link to it.
 
 ## Navigation between routes
 

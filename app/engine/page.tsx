@@ -1,30 +1,30 @@
 import type { Metadata } from 'next';
 import RawPage from '@/components/RawPage';
-import html from '../_content/about.json';
+import html from '../_content/engine.json';
 
-const TITLE = 'About BFunded';
+const TITLE = 'The BFunded Engine';
 const DESCRIPTION =
-  'Three founders, 170 fundraising campaigns and one pattern that would not go away. The story of BFunded, and why we score founders instead of pitch decks.';
+  'Upload a deck and a website. Get scored in minutes, get a raise page, and reach investors who have backed your sector before. Your score decides how far it reaches.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
-  alternates: { canonical: '/about' },
+  alternates: { canonical: '/engine' },
   openGraph: {
     type: 'website',
     siteName: 'BFunded',
-    url: '/about',
+    url: '/engine',
     title: TITLE,
-    description: 'We score founders, not pitch decks.',
+    description: 'Seed and pre-seed fundraising infrastructure.',
   },
   twitter: {
     card: 'summary_large_image',
     title: TITLE,
-    description: 'We score founders, not pitch decks.',
+    description: 'Seed and pre-seed fundraising infrastructure.',
   },
 };
 
-export default function AboutPage() {
+export default function EnginePage() {
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
