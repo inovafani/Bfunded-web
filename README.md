@@ -36,6 +36,24 @@ reuses Webflow's `.w-form-done` / `.w-form-fail` UI.
 paste the script, deploy as a Web app with access **"Anyone"**, then set on
 Netlify:
 
+Three things silently break this, all of which we hit:
+
+1. **Pasting the script inside `function myFunction() { ... }`.** Apps Script
+   only serves a web app through a *global* `doPost`; nested one level down it
+   is invisible and every request returns a Google error page. Paste at the top
+   level and delete the `myFunction` stub.
+2. **Not deploying a new version.** The `/exec` URL is pinned to a version.
+   After any edit: Deploy -> Manage deployments -> pencil -> Version: **New
+   version** -> Deploy. Saving alone changes nothing.
+3. **A standalone script instead of a Sheet-bound one.**
+   `SpreadsheetApp.getActiveSpreadsheet()` returns null outside a bound script,
+   so set `SPREADSHEET_ID` in the script if you created it from
+   script.google.com rather than from the Sheet's Extensions menu.
+
+To verify, open the `/exec` URL in a browser -- the script answers `doGet` with
+`{"ok":true,...}`. A login page or "Access Denied" means access is not set to
+"Anyone" (note: *"Anyone with Google Account" is not enough*).
+
 ```
 NEXT_PUBLIC_SHEETS_ENDPOINT = https://script.google.com/macros/s/.../exec
 ```
