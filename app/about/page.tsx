@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import RawPage from '@/components/RawPage';
-import html from '../_content/about.json';
+import { loadContent } from '@/lib/content';
 
 const TITLE = 'About BFunded';
 const DESCRIPTION =
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const html = loadContent('about');
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />

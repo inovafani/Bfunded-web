@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import RawPage from '@/components/RawPage';
-import html from '../_content/engine.json';
+import { loadContent } from '@/lib/content';
 
 const TITLE = 'The BFunded Engine';
 const DESCRIPTION =
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 };
 
 export default function EnginePage() {
+  const html = loadContent('engine');
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />

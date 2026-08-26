@@ -1,0 +1,2665 @@
+<style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --ink: #000;
+        --paper: #fff;
+        --muted: #8b8b8b;
+        --rule: rgba(255, 255, 255, 0.12);
+        --mint: #d6f2e4;
+        --accent: #3ec28f;
+      }
+      html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        background: var(--ink);
+        color: var(--paper);
+        font-family: "DM Sans", Inter, Arial, sans-serif;
+        font-weight: 400;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      img,
+      video {
+        max-width: 100%;
+        display: block;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      /* nav */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(0, 0, 0, 0.82);
+        backdrop-filter: blur(14px);
+      }
+      .nav-in {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px 32px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .nav img {
+        height: 34px;
+      }
+      .nav-r {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        font-size: 15px;
+        color: #cfcfcf;
+      }
+      .nav-r a.l:hover {
+        color: #fff;
+      }
+      .nav-cta {
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 100px;
+        padding: 11px 24px;
+        font-size: 15px;
+        color: #fff;
+      }
+      .nav-cta:hover {
+        background: #fff;
+        color: #000;
+      }
+      @media (max-width: 860px) {
+        .nav-r a.l {
+          display: none;
+        }
+        .nav-in {
+          padding: 16px 22px;
+        }
+      }
+
+      /* hero */
+      .hero {
+        position: relative;
+        min-height: 78vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+      }
+      .hero > img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero .veil {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.6),
+          rgba(0, 0, 0, 0.45) 45%,
+          rgba(0, 0, 0, 0.85)
+        );
+      }
+      .hero .in {
+        position: relative;
+        padding: 120px 32px;
+      }
+      h1 {
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        line-height: 1.02;
+        font-size: clamp(44px, 7.2vw, 104px);
+      }
+      .hero p {
+        margin: 28px auto 0;
+        max-width: 620px;
+        font-size: clamp(17px, 1.5vw, 21px);
+        color: #c9c9c9;
+        font-weight: 400;
+      }
+
+      /* sections */
+      section {
+        padding: clamp(80px, 10vw, 150px) 0;
+        scroll-margin-top: 90px;
+      }
+      .eyebrow {
+        font-family: Inter, sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 22px;
+      }
+      h2 {
+        font-weight: 400;
+        letter-spacing: -0.025em;
+        line-height: 1.06;
+        font-size: clamp(34px, 5vw, 72px);
+      }
+      .lede {
+        margin-top: 26px;
+        max-width: 680px;
+        font-size: clamp(17px, 1.5vw, 21px);
+        color: #b4b4b4;
+        line-height: 1.6;
+      }
+
+      /* three-up, no boxes */
+      .trio {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(28px, 4vw, 64px);
+        margin-top: clamp(52px, 6vw, 88px);
+      }
+      .trio .n {
+        font-size: 15px;
+        color: var(--accent);
+        font-family: Inter, sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+      }
+      .trio h3 {
+        margin-top: 20px;
+        font-size: clamp(21px, 2vw, 28px);
+        font-weight: 400;
+        letter-spacing: -0.015em;
+        line-height: 1.25;
+      }
+      .trio p {
+        margin-top: 14px;
+        font-size: 16px;
+        color: #9a9a9a;
+        line-height: 1.65;
+      }
+      @media (max-width: 800px) {
+        .trio {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+      }
+
+      /* numbered steps as type, not boxes */
+      .steps {
+        margin-top: clamp(48px, 6vw, 80px);
+        border-top: 1px solid var(--rule);
+      }
+      .step {
+        display: grid;
+        grid-template-columns: 70px 1fr 200px;
+        gap: 28px;
+        align-items: baseline;
+        padding: clamp(26px, 3vw, 40px) 0;
+        border-bottom: 1px solid var(--rule);
+      }
+      .step .i {
+        font-family: Inter, sans-serif;
+        font-size: 14px;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+      }
+      .step h3 {
+        font-size: clamp(20px, 2.2vw, 32px);
+        font-weight: 400;
+        letter-spacing: -0.015em;
+      }
+      .step .r {
+        text-align: right;
+        font-size: 15px;
+        color: var(--accent);
+        font-family: Inter, sans-serif;
+        letter-spacing: 0.02em;
+      }
+      @media (max-width: 800px) {
+        .step {
+          grid-template-columns: 44px 1fr;
+          gap: 16px;
+        }
+        .step .r {
+          grid-column: 2;
+          text-align: left;
+          margin-top: 8px;
+        }
+      }
+
+      /* stat line */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(24px, 4vw, 56px);
+        margin-top: clamp(48px, 6vw, 80px);
+        border-top: 1px solid var(--rule);
+        padding-top: clamp(36px, 4vw, 56px);
+      }
+      .stat b {
+        display: block;
+        font-size: clamp(40px, 5.4vw, 76px);
+        font-weight: 300;
+        letter-spacing: -0.035em;
+        line-height: 1;
+      }
+      .stat span {
+        display: block;
+        margin-top: 14px;
+        font-size: 15px;
+        color: #9a9a9a;
+        line-height: 1.5;
+      }
+      @media (max-width: 800px) {
+        .stats {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+
+      /* team */
+      .team {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(24px, 3vw, 44px);
+        margin-top: clamp(52px, 6vw, 88px);
+      }
+      .person img {
+        width: 100%;
+        aspect-ratio: 0.82;
+        object-fit: cover;
+        border-radius: 4px;
+        filter: grayscale(100%);
+        transition: filter 0.5s ease;
+      }
+      .person:hover img {
+        filter: grayscale(0);
+      }
+      .person h3 {
+        margin-top: 24px;
+        font-size: clamp(20px, 1.8vw, 26px);
+        font-weight: 400;
+        letter-spacing: -0.015em;
+      }
+      .person .role {
+        margin-top: 6px;
+        font-family: Inter, sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .person p {
+        margin-top: 16px;
+        font-size: 15px;
+        color: #9a9a9a;
+        line-height: 1.65;
+      }
+      @media (max-width: 800px) {
+        .team {
+          grid-template-columns: 1fr;
+          gap: 48px;
+          max-width: 420px;
+        }
+      }
+
+      /* mint band */
+      .band {
+        background: var(--mint);
+        color: #0b0b0b;
+      }
+      .band .eyebrow {
+        color: #1d7a57;
+      }
+      .band .lede {
+        color: #3b4a44;
+      }
+
+      /* close */
+      .close {
+        text-align: center;
+      }
+      .close h2 {
+        max-width: 14ch;
+        margin: 0 auto;
+      }
+      .close .go {
+        display: inline-block;
+        margin-top: 44px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 100px;
+        padding: 19px 46px;
+        font-size: 17px;
+        letter-spacing: 0.01em;
+      }
+      .close .go:hover {
+        background: #fff;
+        color: #000;
+      }
+      .close .sub {
+        margin-top: 22px;
+        font-size: 15px;
+        color: var(--muted);
+      }
+
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 56px 0 72px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      footer .fin {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      footer .disc {
+        max-width: 720px;
+        margin-bottom: 26px;
+        line-height: 1.7;
+      }
+
+      .rise {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.8s cubic-bezier(0.22, 0.75, 0.2, 1),
+          transform 0.8s cubic-bezier(0.22, 0.75, 0.2, 1);
+      }
+      .rise.on {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .rise {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+
+      /* product shots, rendered in css */
+      .appwrap {
+        margin-top: clamp(48px, 6vw, 80px);
+      }
+      .app {
+        background: #fbfbf9;
+        border-radius: 14px;
+        overflow: hidden;
+        color: #16211d;
+        box-shadow: 0 50px 90px -46px rgba(0, 0, 0, 0.85);
+        display: grid;
+        grid-template-columns: 236px 1fr;
+      }
+      .app .side {
+        background: #f2f3f0;
+        border-right: 1px solid #e2e5e0;
+        padding: 18px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .app .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .app .brand i {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 1.5px solid #16211d;
+        display: block;
+      }
+      .app .sub {
+        font-size: 10.5px;
+        color: #7a857f;
+        margin-top: -9px;
+      }
+      .app .srch {
+        background: #fff;
+        border: 1px solid #e2e5e0;
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 12px;
+        color: #8b948f;
+        display: flex;
+        justify-content: space-between;
+      }
+      .app .navi {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .app .navi a {
+        padding: 9px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        color: #4c5854;
+      }
+      .app .navi a.on {
+        background: #dff0e6;
+        color: #0f3d2c;
+        font-weight: 600;
+      }
+      .app .money {
+        background: #fff;
+        border: 1px solid #e2e5e0;
+        border-radius: 10px;
+        padding: 13px;
+      }
+      .app .money u {
+        display: block;
+        text-decoration: none;
+        font-family: Inter, sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        color: #8b948f;
+        text-transform: uppercase;
+      }
+      .app .money b {
+        display: block;
+        font-size: 26px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        margin-top: 6px;
+        min-height: 31px;
+      }
+      .app .money .pb {
+        height: 4px;
+        border-radius: 3px;
+        background: #e4e7e3;
+        margin: 10px 0 7px;
+        overflow: hidden;
+      }
+      .app .money .pb i {
+        display: block;
+        height: 100%;
+        width: 4%;
+        background: var(--accent);
+      }
+      .app .money span {
+        font-size: 10.5px;
+        color: #7a857f;
+      }
+      .app .main {
+        padding: 22px 24px 26px;
+        min-width: 0;
+      }
+      .app .top {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      .app .top b {
+        font-size: 19px;
+        font-weight: 600;
+      }
+      .app .top span {
+        font-size: 13px;
+        color: #7a857f;
+      }
+      .app .top em {
+        margin-left: auto;
+        font-style: normal;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .app .tbar {
+        height: 4px;
+        border-radius: 3px;
+        background: #e4e7e3;
+        margin: 11px 0 6px;
+        overflow: hidden;
+      }
+      .app .tbar i {
+        display: block;
+        height: 100%;
+        width: 4%;
+        background: var(--accent);
+      }
+      .app .tnote {
+        font-size: 11px;
+        color: #8b948f;
+        min-height: 14px;
+      }
+      .app .next {
+        margin-top: 18px;
+        background: #fff;
+        border: 1px solid #e6e8e4;
+        border-left: 3px solid #d98324;
+        border-radius: 10px;
+        padding: 15px 16px;
+      }
+      .app .next u {
+        display: block;
+        text-decoration: none;
+        font-family: Inter, sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.11em;
+        color: #b0762c;
+        text-transform: uppercase;
+      }
+      .app .next b {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 8px;
+      }
+      .app .next p {
+        font-size: 12px;
+        color: #6d7873;
+        margin-top: 6px;
+        line-height: 1.5;
+      }
+      .app .next .btn {
+        display: inline-block;
+        margin-top: 12px;
+        background: #d98324;
+        color: #fff;
+        border-radius: 8px;
+        padding: 8px 14px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .app .track {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .app .trow {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 8px 0;
+        font-size: 13px;
+        color: #6d7873;
+      }
+      .app .trow i {
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        background: #1f7a55;
+        color: #fff;
+        font-style: normal;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .app .trow.now {
+        color: #16211d;
+        font-weight: 600;
+      }
+      .app .trow.now i {
+        background: #fff;
+        border: 1.5px solid #1f7a55;
+        color: #1f7a55;
+      }
+      @media (max-width: 820px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+        .app .side {
+          display: none;
+        }
+      }
+
+      .duo2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(20px, 2.6vw, 32px);
+        margin-top: clamp(20px, 2.6vw, 32px);
+      }
+      .mini {
+        background: #fbfbf9;
+        border-radius: 14px;
+        padding: 20px;
+        color: #16211d;
+        box-shadow: 0 40px 80px -46px rgba(0, 0, 0, 0.8);
+      }
+      .mini u {
+        display: block;
+        text-decoration: none;
+        font-family: Inter, sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        color: #8b948f;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .mini h4 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .mini p {
+        font-size: 11.5px;
+        color: #6d7873;
+        line-height: 1.5;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 12px;
+      }
+      .chip {
+        border: 1px solid #dfe3de;
+        border-radius: 100px;
+        padding: 5px 11px;
+        font-size: 11px;
+        color: #5b6560;
+      }
+      .chip.on {
+        background: #16211d;
+        color: #fff;
+        border-color: #16211d;
+      }
+      .findbtn {
+        display: inline-block;
+        margin-top: 14px;
+        background: #16211d;
+        color: #fff;
+        border-radius: 8px;
+        padding: 8px 14px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .cmsg {
+        max-width: 88%;
+        padding: 8px 11px;
+        border-radius: 12px;
+        font-size: 11.5px;
+        line-height: 1.45;
+        margin-bottom: 7px;
+      }
+      .cmsg.them {
+        background: #eef0ec;
+        color: #3f4a45;
+        border-bottom-left-radius: 4px;
+      }
+      .cmsg.us {
+        background: #1f7a55;
+        color: #fff;
+        margin-left: auto;
+        border-bottom-right-radius: 4px;
+      }
+      @media (max-width: 820px) {
+        .duo2 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* the mockup runs: progress climbs, notifications land */
+      .toastwrap {
+        position: absolute;
+        top: 12px;
+        right: 11px;
+        width: min(232px, 35%);
+        height: 86px;
+        pointer-events: none;
+        z-index: 6;
+      }
+      .toast {
+        position: absolute;
+        left: 0;
+        right: 0;
+        background: rgba(15, 18, 16, 0.94);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 12px;
+        padding: 10px 13px 10px 39px;
+        box-shadow: 0 26px 50px -22px rgba(0, 0, 0, 0.9);
+        color: #fff;
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        transform: translateX(20px) scale(0.97);
+        animation: toastIn 24s cubic-bezier(0.22, 0.75, 0.2, 1) infinite;
+      }
+      .toast i {
+        position: absolute;
+        left: 12px;
+        top: 11px;
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #07130d;
+        font-style: normal;
+        font-size: 9.5px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .toast b {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.25;
+      }
+      .toast span {
+        display: block;
+        font-size: 10.5px;
+        color: #a4afa8;
+        margin-top: 3px;
+        line-height: 1.35;
+      }
+      .toast {
+        top: 0;
+      }
+      .toast.t1 {
+        animation-delay: 0.4s;
+      }
+      .toast.t2 {
+        animation-delay: 4.4s;
+      }
+      .toast.t3 {
+        animation-delay: 8.4s;
+      }
+      .toast.t4 {
+        animation-delay: 12.4s;
+      }
+      .toast.t5 {
+        animation-delay: 16.4s;
+      }
+      .toast.t6 {
+        animation-delay: 20.4s;
+      }
+      @keyframes toastIn {
+        0% {
+          opacity: 0;
+          transform: translateX(20px) scale(0.97);
+        }
+        1.7% {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+        }
+        15.5% {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+        }
+        17.5% {
+          opacity: 0;
+          transform: translateX(0) scale(0.99);
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      /* free-reach counter climbs as the score climbs */
+      .dbar i {
+        animation: fill 24s cubic-bezier(0.5, 0, 0.2, 1) infinite;
+      }
+      @keyframes fill {
+        0%,
+        40% {
+          width: 12%;
+        }
+        44% {
+          width: 38%;
+        }
+        73.5% {
+          width: 38%;
+        }
+        77.5% {
+          width: 100%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+      .tick {
+        position: relative;
+        display: inline-block;
+        min-width: 3.3ch;
+        text-align: right;
+      }
+      .tick span {
+        position: absolute;
+        right: 0;
+        top: 0;
+        white-space: nowrap;
+      }
+      .tick span:first-child {
+        position: relative;
+      }
+      .tick span:nth-child(1) {
+        animation: v1 24s steps(1) infinite;
+      }
+      .tick span:nth-child(2) {
+        animation: v2 24s steps(1) infinite;
+      }
+      .tick span:nth-child(3) {
+        animation: v3 24s steps(1) infinite;
+      }
+      @keyframes v1 {
+        0% {
+          opacity: 1;
+        }
+        40% {
+          opacity: 1;
+        }
+        40.1% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes v2 {
+        0% {
+          opacity: 0;
+        }
+        40% {
+          opacity: 0;
+        }
+        40.1% {
+          opacity: 1;
+        }
+        73.5% {
+          opacity: 1;
+        }
+        73.6% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes v3 {
+        0% {
+          opacity: 0;
+        }
+        73.5% {
+          opacity: 0;
+        }
+        73.6% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @media (max-width: 820px) {
+        .toastwrap {
+          width: auto;
+          top: 8px;
+          left: 8px;
+          right: 8px;
+          height: 62px;
+        }
+        .toast {
+          padding: 9px 12px 9px 36px;
+          top: 0;
+          bottom: auto;
+        }
+        .toast b {
+          font-size: 11.5px;
+        }
+        .toast span {
+          font-size: 10px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .toast {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+        .toast.t3,
+        .toast.t4,
+        .toast.t5,
+        .toast.t6 {
+          display: none;
+        }
+        .dbar i {
+          animation: none;
+          width: 38%;
+        }
+        .tick span {
+          animation: none;
+        }
+        .tick span:not(:first-child) {
+          display: none;
+        }
+      }
+
+      /* scroll-driven product sequence */
+      .scroller {
+        display: grid;
+        grid-template-columns: minmax(0, 30%) minmax(0, 70%);
+        gap: clamp(30px, 5vw, 80px);
+        margin-top: clamp(40px, 5vw, 64px);
+        align-items: start;
+      }
+      .svis {
+        position: sticky;
+        top: 96px;
+        order: 2;
+      }
+      .vstack {
+        position: relative;
+        height: clamp(480px, 48vw, 620px);
+      }
+      .vis {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s ease;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .vis.on {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+      }
+      .vlabel {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-family: Inter, sans-serif;
+        font-size: 13px;
+        color: #8b8b8b;
+      }
+      .vlabel i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex: none;
+      }
+      .scopy {
+        order: 1;
+      }
+      .sblock {
+        min-height: 74vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 0.32;
+        transition: opacity 0.45s ease;
+      }
+      .sblock.on {
+        opacity: 1;
+      }
+      .sblock h3 {
+        font-size: clamp(24px, 2.9vw, 40px);
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 1.12;
+      }
+      .sblock p {
+        margin-top: 18px;
+        font-size: clamp(16px, 1.5vw, 19px);
+        color: #a5a5a5;
+        line-height: 1.65;
+        max-width: 44ch;
+      }
+
+      .mock {
+        background: #fbfbf9;
+        border-radius: 12px;
+        overflow: hidden;
+        color: #16211d;
+        box-shadow: 0 44px 84px -46px rgba(0, 0, 0, 0.85);
+      }
+      .mock.pad {
+        padding: 20px;
+      }
+      .mockbar {
+        background: #eceee9;
+        padding: 9px 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .mockbar i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #cdd2cc;
+        display: block;
+      }
+      .mockbar span {
+        margin-left: 10px;
+        font-size: 10.5px;
+        color: #8b948f;
+      }
+      .mockbody {
+        padding: 20px;
+      }
+      .mp-h {
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      .mp-s {
+        font-size: 12px;
+        color: #7a857f;
+        margin-top: 4px;
+      }
+      .mp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+        margin-top: 16px;
+      }
+      .mp-grid div {
+        background: #f1f3ef;
+        border-radius: 8px;
+        padding: 10px 12px;
+      }
+      .mp-grid b {
+        display: block;
+        font-size: 17px;
+        font-weight: 600;
+      }
+      .mp-grid u {
+        display: block;
+        text-decoration: none;
+        font-size: 9.5px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: #8b948f;
+        margin-top: 3px;
+      }
+      .mp-cta {
+        margin-top: 14px;
+        background: #1f7a55;
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        font-size: 12.5px;
+        font-weight: 600;
+      }
+      .mp-note {
+        margin-top: 10px;
+        font-size: 10.5px;
+        color: #8b948f;
+        text-align: center;
+      }
+      .mk-h {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .paths {
+        margin-top: 14px;
+      }
+      .prow {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 9px 0;
+        border-top: 1px solid #e9ebe7;
+      }
+      .pav {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: linear-gradient(140deg, #2b6d53, #3ec28f);
+        flex: none;
+      }
+      .pt b {
+        display: block;
+        font-size: 11.5px;
+        font-weight: 600;
+      }
+      .pt u {
+        display: block;
+        text-decoration: none;
+        font-size: 10px;
+        color: #7a857f;
+        margin-top: 2px;
+      }
+      .psc {
+        margin-left: auto;
+        font-family: Inter, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: #1f7a55;
+      }
+      .mock.center {
+        display: flex;
+        flex-direction: column;
+      }
+      .bigscore {
+        font-size: 64px;
+        font-weight: 300;
+        letter-spacing: -0.04em;
+        text-align: center;
+        line-height: 1;
+        margin-top: 6px;
+      }
+      .tierline {
+        text-align: center;
+        font-family: Inter, sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        color: #1f7a55;
+        margin-top: 8px;
+      }
+      .tbar2 {
+        height: 5px;
+        border-radius: 4px;
+        background: #e4e7e3;
+        margin: 18px 0 8px;
+        overflow: hidden;
+      }
+      .tbar2 i {
+        display: block;
+        height: 100%;
+        width: 62%;
+        background: var(--accent);
+      }
+      .tends {
+        display: flex;
+        justify-content: space-between;
+        font-family: Inter, sans-serif;
+        font-size: 9.5px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #8b948f;
+      }
+      .unlockcard {
+        margin-top: 16px;
+        background: #eef6f1;
+        border: 1px solid #cfe6da;
+        border-radius: 10px;
+        padding: 12px;
+      }
+      .unlockcard b {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .unlockcard u {
+        display: block;
+        text-decoration: none;
+        font-size: 10.5px;
+        color: #5f7269;
+        margin-top: 3px;
+      }
+
+      /* ---- onboarding split-panel screen (mirrors the live product) ---- */
+      .ob {
+        display: grid;
+        grid-template-columns: minmax(0, 43%) minmax(0, 57%);
+        height: 100%;
+        background: #fff;
+        border-radius: 14px;
+        overflow: hidden;
+        color: #141413;
+        box-shadow: 0 44px 84px -46px rgba(0, 0, 0, 0.85);
+      }
+      .obl {
+        position: relative;
+        overflow: hidden;
+        color: #fff;
+        padding: clamp(18px, 2.1vw, 28px);
+        display: flex;
+        flex-direction: column;
+        background: #0d1210 url(/assets/home/ob-hero.jpg) 43% center/cover
+          no-repeat;
+      }
+      .obl:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            680px 420px at 12% -8%,
+            rgba(169, 205, 182, 0.16),
+            transparent
+          ),
+          linear-gradient(
+            102deg,
+            rgba(8, 11, 9, 0.68) 0%,
+            rgba(8, 11, 9, 0.36) 46%,
+            rgba(8, 11, 9, 0.06) 82%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(9, 13, 10, 0.38) 0%,
+            rgba(9, 13, 10, 0.1) 40%,
+            rgba(8, 11, 9, 0.8) 100%
+          );
+      }
+      .obl > * {
+        position: relative;
+      }
+      .oblogo {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .oblogo i {
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255, 255, 255, 0.85);
+        display: block;
+        flex: none;
+      }
+      .obeye {
+        margin-top: auto;
+        font-family: Inter, sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        font-weight: 600;
+      }
+      .obl h4 {
+        margin: 11px 0 0;
+        font-size: clamp(18px, 2.05vw, 26px);
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+      .obl h4 em {
+        font-style: normal;
+        color: #a9cdb6;
+      }
+      .obled {
+        margin: 11px 0 0;
+        font-size: 12px;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.72);
+        max-width: 31ch;
+      }
+      .oblist {
+        margin: 17px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+      }
+      .oblist span {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 11.5px;
+        line-height: 1.35;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      .oblist span:before {
+        content: "\2713";
+        flex: none;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 1px solid #a9cdb6;
+        color: #a9cdb6;
+        font-size: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1px;
+      }
+      .obproof {
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 13px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .obproof b {
+        flex: none;
+        font-size: 21px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .obproof u {
+        text-decoration: none;
+        font-size: 10.5px;
+        line-height: 1.35;
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      .obr {
+        padding: clamp(18px, 2.2vw, 30px) clamp(18px, 2.6vw, 34px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #fff;
+      }
+      .obsteps {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 15px;
+      }
+      .obsteps i {
+        flex: 1;
+        height: 3px;
+        border-radius: 99px;
+        background: rgba(20, 20, 18, 0.11);
+        display: block;
+      }
+      .obsteps i.done {
+        background: #15794a;
+      }
+      .obsteps i.cur {
+        background: #141413;
+      }
+      .obno {
+        font-family: Inter, sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #6b6b64;
+        font-weight: 600;
+      }
+      .obr h5 {
+        margin: 8px 0 0;
+        font-size: clamp(18px, 2vw, 26px);
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+      }
+      .obsub {
+        margin: 8px 0 0;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #6b6b64;
+        max-width: 48ch;
+      }
+      .obcard {
+        margin-top: 15px;
+        border: 1px solid rgba(20, 20, 18, 0.09);
+        border-radius: 12px;
+        padding: 14px;
+        background: #fff;
+      }
+      .obfield {
+        margin-bottom: 10px;
+      }
+      .obfield:last-child {
+        margin-bottom: 0;
+      }
+      .oblab {
+        font-family: Inter, sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #6b6b64;
+        font-weight: 600;
+      }
+      .obin {
+        margin-top: 4px;
+        border: 1px solid rgba(20, 20, 18, 0.13);
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 11.5px;
+        color: #141413;
+        background: #fff;
+      }
+      .obin.ph {
+        color: #a5a59e;
+      }
+      .obin.tall {
+        padding-bottom: 22px;
+      }
+      .ob2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .obact {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 14px;
+        margin-top: 14px;
+      }
+      .obback {
+        font-size: 11.5px;
+        color: #6b6b64;
+      }
+      .obbtn {
+        background: #141413;
+        color: #fff;
+        border-radius: 10px;
+        padding: 9px 16px;
+        font-size: 11.5px;
+        font-weight: 600;
+      }
+      .obopt {
+        border: 1px solid rgba(20, 20, 18, 0.12);
+        border-radius: 10px;
+        padding: 11px 13px;
+        margin-bottom: 9px;
+      }
+      .obopt:last-child {
+        margin-bottom: 0;
+      }
+      .obopt.sel {
+        border-color: #15794a;
+        background: rgba(21, 121, 74, 0.06);
+        box-shadow: 0 0 0 1px #15794a inset;
+      }
+      .obopt b {
+        display: block;
+        font-size: 12.5px;
+        font-weight: 600;
+      }
+      .obopt u {
+        display: block;
+        text-decoration: none;
+        font-size: 11px;
+        line-height: 1.45;
+        color: #6b6b64;
+        margin-top: 4px;
+      }
+      .obfile {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        border: 1px solid rgba(20, 20, 18, 0.13);
+        border-radius: 8px;
+        padding: 7px 9px;
+        font-size: 11px;
+        color: #8b8b84;
+      }
+      .obfile b {
+        flex: none;
+        background: #f3f3f0;
+        border: 1px solid rgba(20, 20, 18, 0.13);
+        border-radius: 6px;
+        padding: 4px 9px;
+        font-size: 10.5px;
+        color: #141413;
+        font-weight: 500;
+      }
+      .obduo {
+        display: flex;
+        gap: 9px;
+        margin-top: 10px;
+      }
+      .obduo b {
+        background: #141413;
+        color: #fff;
+        border-radius: 9px;
+        padding: 8px 14px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .obduo u {
+        text-decoration: none;
+        background: #fff;
+        border: 1px solid rgba(20, 20, 18, 0.12);
+        border-radius: 9px;
+        padding: 8px 14px;
+        font-size: 11px;
+        color: #141413;
+      }
+      .obparsed {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 12px;
+        background: rgba(21, 121, 74, 0.08);
+        border: 1px solid rgba(21, 121, 74, 0.22);
+        color: #15794a;
+        border-radius: 99px;
+        padding: 4px 11px;
+        font-size: 10.5px;
+        font-weight: 600;
+      }
+      .obpills {
+        margin-top: 10px;
+      }
+      .obpill {
+        display: inline-block;
+        border: 1px solid rgba(21, 121, 74, 0.28);
+        background: rgba(21, 121, 74, 0.07);
+        color: #15794a;
+        border-radius: 99px;
+        padding: 5px 11px;
+        font-size: 10.5px;
+        font-weight: 600;
+        margin: 0 6px 6px 0;
+      }
+      .obmuted {
+        margin-top: 4px;
+        font-size: 10.5px;
+        color: #8b8b84;
+      }
+      .obscore {
+        font-size: clamp(34px, 4.2vw, 54px);
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        text-align: center;
+        line-height: 1;
+      }
+      .obtier {
+        display: block;
+        width: -moz-max-content;
+        width: max-content;
+        margin: 9px auto 0;
+        background: rgba(21, 121, 74, 0.09);
+        color: #15794a;
+        border-radius: 99px;
+        padding: 4px 12px;
+        font-size: 10.5px;
+        font-weight: 600;
+      }
+      .ob3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 9px;
+        margin-top: 16px;
+      }
+      .ob3 div {
+        border: 1px solid rgba(20, 20, 18, 0.09);
+        border-radius: 10px;
+        padding: 10px 8px;
+        text-align: center;
+      }
+      .ob3 u {
+        display: block;
+        text-decoration: none;
+        font-family: Inter, sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: #6b6b64;
+        font-weight: 600;
+        line-height: 1.35;
+      }
+      .ob3 b {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 6px;
+      }
+      .ob3 b.g {
+        color: #15794a;
+      }
+      .ob3 b.sm {
+        font-size: 10.5px;
+        letter-spacing: 0.01em;
+      }
+
+      /* ---- founder dashboard screen ---- */
+      .dash {
+        display: grid;
+        grid-template-columns: minmax(0, 28%) minmax(0, 72%);
+        height: 100%;
+        background: #fff;
+        border-radius: 14px;
+        overflow: hidden;
+        color: #141413;
+        box-shadow: 0 44px 84px -46px rgba(0, 0, 0, 0.85);
+      }
+      .dside {
+        background: #fbfbf9;
+        border-right: 1px solid rgba(20, 20, 18, 0.08);
+        padding: 15px 13px;
+        display: flex;
+        flex-direction: column;
+      }
+      .dbrand {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12.5px;
+        font-weight: 600;
+      }
+      .dbrand i {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1.6px solid #141413;
+        display: block;
+        flex: none;
+      }
+      .dsub {
+        font-size: 9.5px;
+        color: #6b6b64;
+        margin-top: 7px;
+      }
+      .dsearch {
+        margin-top: 13px;
+        border: 1px solid rgba(20, 20, 18, 0.1);
+        border-radius: 9px;
+        padding: 7px 9px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        font-size: 11px;
+        color: #8b8b84;
+        background: #fff;
+      }
+      .dsearch em {
+        font-style: normal;
+        font-size: 9.5px;
+      }
+      .dnav {
+        margin-top: 11px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .dnav a {
+        font-size: 11.5px;
+        padding: 7px 9px;
+        border-radius: 9px;
+        color: #3d3d38;
+      }
+      .dnav a.on {
+        background: rgba(21, 121, 74, 0.09);
+        color: #15794a;
+        font-weight: 600;
+      }
+      .dreach {
+        margin-top: 13px;
+        border: 1px solid rgba(20, 20, 18, 0.09);
+        border-radius: 11px;
+        padding: 11px;
+        background: #fff;
+      }
+      .dreach u {
+        display: block;
+        text-decoration: none;
+        font-family: Inter, sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #6b6b64;
+        font-weight: 600;
+      }
+      .dreach b {
+        display: block;
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        margin-top: 6px;
+        text-align: right;
+      }
+      .dbar {
+        height: 4px;
+        border-radius: 4px;
+        background: rgba(20, 20, 18, 0.1);
+        margin: 10px 0 7px;
+        overflow: hidden;
+      }
+      .dbar i {
+        display: block;
+        height: 100%;
+        width: 12%;
+        background: #15794a;
+      }
+      .dreach em {
+        font-style: normal;
+        display: block;
+        font-size: 9.5px;
+        line-height: 1.4;
+        color: #6b6b64;
+      }
+      .drerun {
+        margin-top: auto;
+        margin-bottom: 11px;
+        font-size: 10.5px;
+        color: #8b8b84;
+      }
+      .dfoot {
+        border: 1px solid rgba(20, 20, 18, 0.09);
+        border-radius: 11px;
+        padding: 8px 9px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+      }
+      .dfoot i {
+        flex: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 7px;
+        background: #15794a;
+        color: #fff;
+        font-style: normal;
+        font-size: 8.5px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .dfoot b {
+        display: block;
+        font-size: 10.5px;
+        font-weight: 600;
+      }
+      .dfoot u {
+        display: block;
+        text-decoration: none;
+        font-size: 9px;
+        color: #6b6b64;
+        margin-top: 2px;
+      }
+      .dmain {
+        padding: 16px 18px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .dnext {
+        border: 1px solid rgba(20, 20, 18, 0.08);
+        border-left: 3px solid #c2792b;
+        border-radius: 12px;
+        padding: 13px 15px;
+        background: #fff;
+        box-shadow: 0 12px 28px -20px rgba(0, 0, 0, 0.4);
+      }
+      .dnext u {
+        display: block;
+        text-decoration: none;
+        font-family: Inter, sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #c2792b;
+        font-weight: 600;
+      }
+      .dnext h6 {
+        margin: 8px 0 0;
+        font-size: 14.5px;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        max-width: 26ch;
+      }
+      .dnext p {
+        margin: 6px 0 0;
+        font-size: 11px;
+        line-height: 1.5;
+        color: #6b6b64;
+        max-width: 34ch;
+      }
+      .dgo {
+        display: inline-block;
+        margin-top: 10px;
+        background: #c2792b;
+        color: #fff;
+        border-radius: 9px;
+        padding: 7px 13px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .dtrack {
+        margin-top: 15px;
+      }
+      .dstep {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        padding-bottom: 16px;
+        position: relative;
+      }
+      .dstep:last-child {
+        padding-bottom: 0;
+      }
+      .dstep > i {
+        flex: none;
+        width: 21px;
+        height: 21px;
+        border-radius: 50%;
+        background: #15794a;
+        color: #fff;
+        font-style: normal;
+        font-size: 9.5px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+      }
+      .dstep.cur > i {
+        background: #fff;
+        border: 1.6px solid #15794a;
+        color: #15794a;
+      }
+      .dstep.lock > i {
+        background: #fff;
+        border: 1.4px dashed rgba(20, 20, 18, 0.24);
+        color: #a5a59e;
+      }
+      .dstep:not(:last-child):after {
+        content: "";
+        position: absolute;
+        left: 9.8px;
+        top: 21px;
+        bottom: 1px;
+        width: 1.6px;
+        background: rgba(21, 121, 74, 0.45);
+      }
+      .dstep.dim:not(:last-child):after {
+        background: rgba(20, 20, 18, 0.13);
+      }
+      .dtx {
+        min-width: 0;
+      }
+      .dtx b {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #6b6b64;
+      }
+      .dstep.cur .dtx b {
+        color: #141413;
+      }
+      .dstep.lock .dtx b {
+        color: #a5a59e;
+      }
+      .dtx p {
+        margin: 3px 0 0;
+        font-size: 10.5px;
+        line-height: 1.45;
+        color: #8b8b84;
+        max-width: 44ch;
+      }
+      .dpill {
+        margin-left: auto;
+        flex: none;
+        background: rgba(21, 121, 74, 0.09);
+        color: #15794a;
+        border-radius: 99px;
+        padding: 4px 10px;
+        font-size: 9.5px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .dpill.mute {
+        background: rgba(20, 20, 18, 0.05);
+        color: #8b8b84;
+      }
+
+      @media (max-width: 900px) {
+        .scroller {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+        .svis {
+          order: 1;
+          position: sticky;
+          top: 74px;
+          padding: 14px 0 8px;
+          background: linear-gradient(180deg, #000 78%, transparent);
+        }
+        .vstack {
+          height: clamp(486px, 126vw, 536px);
+        }
+        .scopy {
+          order: 2;
+        }
+        .sblock {
+          min-height: 66vh;
+          opacity: 1;
+        }
+        .sblock p {
+          max-width: none;
+        }
+        .ob {
+          grid-template-columns: 1fr;
+        }
+        .obl {
+          display: none;
+        }
+        .dash {
+          grid-template-columns: 1fr;
+        }
+        .dside {
+          display: none;
+        }
+        .dtx p {
+          max-width: none;
+        }
+        .dnext p,
+        .dnext h6 {
+          max-width: 30ch;
+        }
+        .obr {
+          padding: 16px;
+        }
+        .obcard {
+          margin-top: 12px;
+          padding: 12px;
+        }
+        .obsub {
+          margin-top: 6px;
+        }
+        .obact {
+          margin-top: 11px;
+        }
+        .dmain {
+          padding: 14px 15px;
+        }
+        .dstep {
+          padding-bottom: 13px;
+        }
+        .dtrack {
+          margin-top: 12px;
+        }
+        .dstep:not(.cur) .dtx p {
+          display: none;
+        }
+        .obopt u {
+          font-size: 10.5px;
+        }
+      }
+      @media (max-width: 400px) {
+        .obr {
+          padding: 14px;
+        }
+        .obcard {
+          padding: 11px;
+        }
+        .obfield {
+          margin-bottom: 8px;
+        }
+        .obopt {
+          padding: 9px 11px;
+          margin-bottom: 7px;
+        }
+        .obopt u {
+          font-size: 10px;
+          line-height: 1.4;
+        }
+        .obduo {
+          margin-top: 8px;
+        }
+        .obduo b,
+        .obduo u {
+          padding: 7px 12px;
+        }
+        .obparsed {
+          margin-top: 9px;
+        }
+        .obpills {
+          margin-top: 8px;
+        }
+        .dnext {
+          padding: 11px 13px;
+        }
+        .dnext p,
+        .dtx p {
+          font-size: 10px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .vis {
+          transition: none;
+        }
+        .sblock {
+          opacity: 1;
+        }
+      }
+    </style>
+<style>
+      /* engine-only additions */
+      .swap {
+        margin-top: clamp(48px, 6vw, 80px);
+        border-top: 1px solid var(--rule);
+      }
+      .swaprow {
+        display: grid;
+        grid-template-columns: 1fr 40px 1fr;
+        gap: clamp(16px, 3vw, 40px);
+        align-items: center;
+        padding: clamp(20px, 2.4vw, 30px) 0;
+        border-bottom: 1px solid var(--rule);
+      }
+      .swaprow .was {
+        font-size: clamp(17px, 1.8vw, 23px);
+        color: #7c7c7c;
+        text-decoration: line-through;
+        text-decoration-thickness: 1px;
+        text-decoration-color: #4a4a4a;
+      }
+      .swaprow .arw {
+        text-align: center;
+        color: var(--accent);
+        font-size: 18px;
+      }
+      .swaprow .now {
+        font-size: clamp(17px, 1.8vw, 23px);
+        color: #fff;
+      }
+      @media (max-width: 800px) {
+        .swaprow {
+          grid-template-columns: 1fr;
+          gap: 6px;
+          padding: 18px 0;
+        }
+        .swaprow .arw {
+          display: none;
+        }
+        .swaprow .was,
+        .swaprow .now {
+          font-size: 16px;
+        }
+      }
+      .tiers {
+        margin-top: clamp(44px, 5vw, 72px);
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 2px;
+        border: 1px solid rgba(0, 0, 0, 0.14);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .tier {
+        padding: clamp(20px, 2.4vw, 32px) 16px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.03);
+      }
+      .tier b {
+        display: block;
+        font-size: clamp(20px, 2.4vw, 34px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        color: #0b0b0b;
+      }
+      .tier span {
+        display: block;
+        margin-top: 10px;
+        font-family: Inter, sans-serif;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #5f7269;
+      }
+      .tier.top {
+        background: #0b3b2a;
+      }
+      .tier.top b {
+        color: #fff;
+      }
+      .tier.top span {
+        color: #8fd9b8;
+      }
+      @media (max-width: 800px) {
+        .tiers {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <nav class="nav">
+      <div class="nav-in">
+        <a href="/"
+          ><img src="/assets/home/logo-white.svg" alt="BFunded"
+        /></a>
+        <div class="nav-r">
+          <a href="#inside" class="l">The Product</a>
+          <a
+            href="mailto:hello@bfunded.io?subject=Request%20Access"
+            class="nav-cta"
+            >Request Access</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <img src="/assets/home/band-path.jpg" alt="" />
+      <div class="veil"></div>
+      <div class="in">
+        <div class="eyebrow rise" style="margin-bottom: 26px">
+          Seed &amp; Pre-Seed Fundraising Infrastructure
+        </div>
+        <h1 class="rise">The fundraising engine<br />for founders.</h1>
+        <p class="rise">
+          Get scored in minutes. Reach as far as your evidence takes you.
+        </p>
+      </div>
+    </header>
+
+    <section id="inside">
+      <div class="wrap">
+        <div class="eyebrow rise">Inside The Product</div>
+        <h2 class="rise" style="max-width: 15ch">
+          A workspace for the whole raise.
+        </h2>
+        <p class="lede rise">
+          This is the real product. Scroll through what a founder actually sees.
+        </p>
+
+        <div class="scroller">
+          <div class="svis">
+            <div class="vstack">
+              <div class="vis on" data-i="0">
+                <div class="ob">
+                  <div class="obl">
+                    <div class="oblogo"><i></i> BFunded</div>
+                    <div class="obeye">Founder onboarding</div>
+                    <h4>Set up your <em>raise</em> in 5&nbsp;steps.</h4>
+                    <p class="obled">
+                      Tell us about your company once. We build your investor
+                      matches, your Raise Page and your Founder Score from it.
+                    </p>
+                    <div class="oblist">
+                      <span
+                        >Investors matched by fit, with a real warm path to
+                        each</span
+                      >
+                      <span>A tracked Raise Page built from your deck</span>
+                      <span
+                        >A Founder Score that unlocks free network reach</span
+                      >
+                    </div>
+                    <div class="obproof">
+                      <b>1M+</b
+                      ><u
+                        >investors in the network,<br />reachable by warm
+                        path</u
+                      >
+                    </div>
+                  </div>
+                  <div class="obr">
+                    <div class="obsteps">
+                      <i class="cur"></i><i class=""></i><i class=""></i
+                      ><i class=""></i><i class=""></i>
+                    </div>
+                    <div class="obno">Step 1 of 5</div>
+                    <h5>Let&rsquo;s set up your raise</h5>
+                    <p class="obsub">
+                      A few basics about you and your company. This personalizes
+                      everything: your matches, your Raise Page, your Founder
+                      Score.
+                    </p>
+                    <div class="obcard">
+                      <div class="obfield ob2">
+                        <div>
+                          <div class="oblab">Your name</div>
+                          <div class="obin">Demo Founder</div>
+                        </div>
+                        <div>
+                          <div class="oblab">Work email</div>
+                          <div class="obin">demo@bfunded.app</div>
+                        </div>
+                      </div>
+                      <div class="obfield">
+                        <div class="oblab">Company</div>
+                        <div class="obin ph">Acme Inc.</div>
+                      </div>
+                      <div class="obfield ob2">
+                        <div>
+                          <div class="oblab">Stage</div>
+                          <div class="obin">Seed</div>
+                        </div>
+                        <div>
+                          <div class="oblab">Raising (USD)</div>
+                          <div class="obin ph">1500000</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="obact">
+                      <span class="obbtn">Continue &rarr;</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="vlabel">
+                  <i></i> Step 1 of 5 &middot; about four minutes end to end
+                </div>
+              </div>
+
+              <div class="vis" data-i="1">
+                <div class="ob">
+                  <div class="obl">
+                    <div class="oblogo"><i></i> BFunded</div>
+                    <div class="obeye">Step 2 &middot; Your deck</div>
+                    <h4>Your deck becomes a <em>matching engine</em>.</h4>
+                    <p class="obled">
+                      Drop it in and we auto-extract your sector, stage, raise
+                      and traction, then rank investors by how well they fit
+                      you.
+                    </p>
+                    <div class="obproof">
+                      <b>5.8k</b
+                      ><u
+                        >investors and firms scored on<br />how well they fit
+                        your raise</u
+                      >
+                    </div>
+                  </div>
+                  <div class="obr">
+                    <div class="obsteps">
+                      <i class="done"></i><i class="cur"></i><i class=""></i
+                      ><i class=""></i><i class=""></i>
+                    </div>
+                    <div class="obno">Step 2 of 5</div>
+                    <h5>Upload your deck</h5>
+                    <p class="obsub">
+                      We auto-extract your sector, stage, raise and traction,
+                      and build your investor-matching profile. PDF / PPTX /
+                      TXT.
+                    </p>
+                    <div class="obcard">
+                      <div class="obfile">
+                        <b>Choose file</b> seed-deck-v7.pdf
+                      </div>
+                      <div class="obduo">
+                        <b>Parse my deck</b><u>Use a sample</u>
+                      </div>
+                      <div class="obparsed">&#10003; Parsed</div>
+                      <div class="obpills">
+                        <span class="obpill">Consumer</span
+                        ><span class="obpill">Seed</span
+                        ><span class="obpill">$4,000,000</span
+                        ><span class="obpill">REG-D-506B</span>
+                      </div>
+                      <div class="obmuted">
+                        ICP auto-built: Angel, VC, Operator
+                      </div>
+                    </div>
+                    <div class="obact">
+                      <span class="obback">&larr; Back</span
+                      ><span class="obbtn">Continue &rarr;</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="vlabel">
+                  <i></i> One PDF in, a ranked investor list out
+                </div>
+              </div>
+
+              <div class="vis" data-i="2">
+                <div class="ob">
+                  <div class="obl">
+                    <div class="oblogo"><i></i> BFunded</div>
+                    <div class="obeye">Step 3 &middot; Reg D</div>
+                    <h4>Reach only who you&rsquo;re <em>allowed</em> to.</h4>
+                    <p class="obled">
+                      BFunded is Reg D only. Pick your exemption and every send
+                      stays compliant, automatically.
+                    </p>
+                    <div class="obproof">
+                      <b>506</b
+                      ><u
+                        >(b) for warm intros, or (c) to<br />solicit openly with
+                        verification</u
+                      >
+                    </div>
+                  </div>
+                  <div class="obr">
+                    <div class="obsteps">
+                      <i class="done"></i><i class="done"></i><i class="cur"></i
+                      ><i class=""></i><i class=""></i>
+                    </div>
+                    <div class="obno">Step 3 of 5</div>
+                    <h5>How are you raising?</h5>
+                    <p class="obsub">
+                      BFunded is Reg D only: accredited investors. Pick your
+                      exemption; it sets who you can reach and how.
+                    </p>
+                    <div class="obcard">
+                      <div class="obopt sel">
+                        <b>Reg D 506(b): warm intros only</b
+                        ><u
+                          >No public solicitation. You approach accredited
+                          investors you have a relationship with.
+                          BFunded&rsquo;s warm-path intros are that
+                          relationship. Best default.</u
+                        >
+                      </div>
+                      <div class="obopt">
+                        <b>Reg D 506(c): general solicitation</b
+                        ><u
+                          >You can solicit openly, but every investor must be
+                          verified accredited before investing.</u
+                        >
+                      </div>
+                    </div>
+                    <div class="obact">
+                      <span class="obback">&larr; Back</span
+                      ><span class="obbtn">Continue &rarr;</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="vlabel">
+                  <i></i> The exemption sets the rules, the platform enforces
+                  them
+                </div>
+              </div>
+
+              <div class="vis" data-i="3">
+                <div class="ob">
+                  <div class="obl">
+                    <div class="oblogo"><i></i> BFunded</div>
+                    <div class="obeye">Step 5 &middot; You&rsquo;re set</div>
+                    <h4>You&rsquo;re ready to <em>raise</em>.</h4>
+                    <p class="obled">
+                      Here&rsquo;s your Founder Score and the first investors
+                      your raise can reach, each with a warm path to you.
+                    </p>
+                    <div class="obproof">
+                      <b>Warm</b
+                      ><u
+                        >a real intro path to every<br />investor your raise
+                        surfaces</u
+                      >
+                    </div>
+                  </div>
+                  <div class="obr">
+                    <div class="obsteps">
+                      <i class="done"></i><i class="done"></i
+                      ><i class="done"></i><i class="done"></i
+                      ><i class="cur"></i>
+                    </div>
+                    <div class="obno">Step 5 of 5</div>
+                    <h5>You&rsquo;re set up &#10003;</h5>
+                    <p class="obsub">
+                      Here&rsquo;s your Founder Score and a first look at who
+                      your Reg D raise can reach.
+                    </p>
+                    <div class="obcard">
+                      <div class="obscore">14.3</div>
+                      <span class="obtier">Seed-Spark tier</span>
+                      <div class="ob3">
+                        <div><u>Free reach</u><b class="g">38</b></div>
+                        <div><u>Accredited pool</u><b>387</b></div>
+                        <div><u>Exemption</u><b class="sm">REG-D-506B</b></div>
+                      </div>
+                    </div>
+                    <div class="obact">
+                      <span class="obback">&larr; Back</span
+                      ><span class="obbtn">Enter my dashboard &rarr;</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="vlabel">
+                  <i></i> A score, a tier, and the reach both buy you
+                </div>
+              </div>
+
+              <div class="vis" data-i="4">
+                <div class="dash">
+                  <div class="dside">
+                    <div class="dbrand"><i></i> BFunded</div>
+                    <div class="dsub">Founder Stack &middot; Reg D network</div>
+                    <div class="dsearch">
+                      <span>Search</span><em>&#8984;K</em>
+                    </div>
+                    <div class="dnav">
+                      <a class="on">Raise</a><a>Investors</a>
+                    </div>
+                    <div class="dreach">
+                      <u>Free to reach</u>
+                      <b class="tick"
+                        ><span>38</span><span>120</span><span>387</span></b
+                      >
+                      <div class="dbar"><i></i></div>
+                      <em>accredited investors, at no cost</em>
+                    </div>
+                    <div class="drerun">&#8634; Re-run setup</div>
+                    <div class="dfoot">
+                      <i>DF</i
+                      ><span><b>Demo Founder</b><u>demo@bfunded.app</u></span>
+                    </div>
+                  </div>
+                  <div class="dmain">
+                    <div class="dnext">
+                      <u>Your next move</u>
+                      <h6>2 forwarded decks: book the intro</h6>
+                      <p>
+                        A forward to another investor is the gold signal. Move
+                        on it while it&rsquo;s hot.
+                      </p>
+                      <span class="dgo">Open pipeline &rarr;</span>
+                    </div>
+                    <div class="dtrack">
+                      <div class="dstep">
+                        <i>&#10003;</i>
+                        <div class="dtx">
+                          <b>Score your raise</b>
+                          <p>
+                            See how backable your raise looks, and what lifts
+                            it.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="dstep">
+                        <i>&#10003;</i>
+                        <div class="dtx">
+                          <b>Meet your investors</b>
+                          <p>
+                            387 accredited investors, ranked by fit, each with a
+                            warm path to you.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="dstep cur">
+                        <i>3</i>
+                        <div class="dtx">
+                          <b>Build your investor page</b>
+                          <p>
+                            We turn your deck into one tracked page. You get a
+                            link; it tells you who&rsquo;s reading.
+                          </p>
+                        </div>
+                        <span class="dpill">You&rsquo;re here</span>
+                      </div>
+                      <div class="dstep dim">
+                        <i>4</i>
+                        <div class="dtx">
+                          <b>Send your first intros</b>
+                          <p>
+                            Reach your warmest matches with an intro drafted in
+                            your voice. Every open is tracked.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="dstep lock">
+                        <i>5</i>
+                        <div class="dtx">
+                          <b>Unlock a team for your raise</b>
+                          <p>
+                            When investors start biting, a real raise team takes
+                            the busywork off you.
+                          </p>
+                        </div>
+                        <span class="dpill mute">Locked</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="vlabel">
+                  <i></i> One next move at a time, tracked around the clock
+                </div>
+              </div>
+
+              <div class="toastwrap" aria-hidden="true">
+                <div class="toast t1">
+                  <i>&#10003;</i><b>Investment confirmed!</b
+                  ><span>$50,000 &middot; Sarah L.</span>
+                </div>
+                <div class="toast t2">
+                  <i>&#8593;</i><b>Next step to raise your score</b
+                  ><span>Add two traction metrics</span>
+                </div>
+                <div class="toast t3">
+                  <i>&#10003;</i><b>Score up +6 &middot; tier unlocked</b
+                  ><span>Free reach 38 &rarr; 120</span>
+                </div>
+                <div class="toast t4">
+                  <i>&#9200;</i><b>Meeting booked!</b
+                  ><span>Tue 14:00 &middot; Redwood Capital</span>
+                </div>
+                <div class="toast t5">
+                  <i>&#10003;</i><b>Investment confirmed!</b
+                  ><span>$25,000 &middot; M. Okafor</span>
+                </div>
+                <div class="toast t6">
+                  <i>&#8599;</i><b>Deck forwarded</b
+                  ><span>To two more investors</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scopy">
+            <div class="sblock on" data-i="0">
+              <h3>Set up your raise once</h3>
+              <p>
+                Five steps, about four minutes. Your matches, your raise page
+                and your Founder Score are all built from what you enter here.
+              </p>
+            </div>
+            <div class="sblock" data-i="1">
+              <h3>Your deck becomes a matching engine</h3>
+              <p>
+                Drop the PDF in. We pull out your sector, stage, raise and
+                traction, then score 5,800 investors and firms on how well each
+                one fits you.
+              </p>
+            </div>
+            <div class="sblock" data-i="2">
+              <h3>Compliant before you send anything</h3>
+              <p>
+                Pick your Reg D exemption and every message the platform sends
+                stays inside it. 506(b) for warm intros, 506(c) if you want to
+                solicit openly.
+              </p>
+            </div>
+            <div class="sblock" data-i="3">
+              <h3>Your score decides your reach</h3>
+              <p>
+                You come out with a Founder Score, a tier, and the number of
+                accredited investors you can reach for free. Evidence moves all
+                three.
+              </p>
+            </div>
+            <div class="sblock" data-i="4">
+              <h3>Then it runs the raise with you</h3>
+              <p>
+                One next move at a time, every open and forward tracked, and
+                more of the network unlocked each time your score climbs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="close">
+      <div class="wrap">
+        <h2 class="rise">Start your raise.</h2>
+        <a
+          class="go rise"
+          href="mailto:hello@bfunded.io?subject=Request%20Access"
+          >Request access</a
+        >
+        <div class="sub rise">Free for founders &middot; No cost to apply</div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <p class="disc">
+          BFunded is software and data only. We are not a broker-dealer, we
+          never custody funds, and we take no transaction-based compensation.
+          Nothing on this page is an offer to sell or a solicitation to buy
+          securities.
+        </p>
+        <div class="fin">
+          <span>&copy; 2026 BFunded</span><span>hello@bfunded.io</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var els = document.querySelectorAll(".rise");
+        if (!("IntersectionObserver" in window)) {
+          els.forEach(function (e) {
+            e.classList.add("on");
+          });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (es) {
+            es.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("on");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+        );
+        els.forEach(function (e) {
+          io.observe(e);
+        });
+        setTimeout(function () {
+          document.querySelectorAll(".rise:not(.on)").forEach(function (e) {
+            if (e.getBoundingClientRect().top < innerHeight * 1.3)
+              e.classList.add("on");
+          });
+        }, 900);
+      })();
+
+      (function () {
+        var blocks = [].slice.call(document.querySelectorAll(".sblock"));
+        var vis = [].slice.call(document.querySelectorAll(".vis"));
+        if (!blocks.length || !("IntersectionObserver" in window)) return;
+        function show(i) {
+          vis.forEach(function (v) {
+            v.classList.toggle("on", +v.dataset.i === i);
+          });
+          blocks.forEach(function (bk) {
+            bk.classList.toggle("on", +bk.dataset.i === i);
+          });
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) show(+e.target.dataset.i);
+            });
+          },
+          { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
+        );
+        blocks.forEach(function (bk) {
+          io.observe(bk);
+        });
+      })();
+    </script>
+  

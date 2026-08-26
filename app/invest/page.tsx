@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import RawPage from '@/components/RawPage';
-import html from '../_content/invest.json';
+import { loadContent } from '@/lib/content';
 
 const TITLE = 'Invest in BFunded: The Future of Seed Funding';
 const DESCRIPTION =
@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 };
 
 export default function InvestPage() {
+  const html = loadContent('invest');
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />

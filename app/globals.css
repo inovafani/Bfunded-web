@@ -6,5 +6,19 @@
  * preflight is disabled in tailwind.config.ts for the same reason; the utility
  * layers stay available for any new UI built on top of these pages.
  */
+/*
+ * The one global rule, and only because the browser's default is actively
+ * wrong here: the UA stylesheet puts an 8px margin on <body>, which showed as
+ * a white frame around /admin and /blog.
+ *
+ * This is safe for the captured pages: every one of them already zeroes the
+ * same margin in its own stylesheet (Webflow's normalize on the home page, a
+ * `* { margin: 0 }` reset on the others), so this changes nothing for them.
+ * Background stays untouched -- each route sets its own.
+ */
+body {
+  margin: 0;
+}
+
 @tailwind components;
 @tailwind utilities;

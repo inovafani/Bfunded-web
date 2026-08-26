@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import RawPage from '@/components/RawPage';
-import html from './_content/home.json';
+import { loadContent } from '@/lib/content';
 
 const TITLE = 'BFunded | The Operating System for the Early-Stage Raise';
 const DESCRIPTION =
@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const html = loadContent('home');
   // Optional Google Apps Script endpoint. The waitlist form reads this meta tag
   // and mirrors each submission to a Google Sheet (which also emails the team).
   // Unset = the form still works; it just skips the mirror.
