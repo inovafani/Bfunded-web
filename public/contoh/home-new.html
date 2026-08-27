@@ -397,59 +397,6 @@
         color: var(--accent);
       }
 
-      /* ---------- 8c · WHY NOW (invest market data) ---------- */
-      .whynow {
-        position: relative;
-        text-align: center;
-        background: url("assets/bg-hourglass.jpg") center/cover;
-        padding: 200px 0;
-      }
-      .whynow .shade {
-        position: absolute;
-        inset: 0;
-        background: rgba(4, 7, 5, 0.72);
-      }
-      .whynow .wrap {
-        position: relative;
-        z-index: 2;
-      }
-      .whynow h2 {
-        margin-top: 26px;
-        font-weight: 500;
-        font-size: clamp(38px, 4.8vw, 68px);
-        letter-spacing: -0.025em;
-        color: var(--paper);
-      }
-      .wnrow {
-        display: flex;
-        justify-content: center;
-        gap: clamp(40px, 7vw, 104px);
-        margin-top: 74px;
-      }
-      .wnrow b {
-        display: block;
-        font-weight: 500;
-        font-size: clamp(34px, 3.6vw, 52px);
-        letter-spacing: -0.02em;
-        color: var(--accent);
-      }
-      .wnrow span {
-        display: block;
-        margin-top: 12px;
-        font-size: 12px;
-        font-weight: 500;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.72);
-        line-height: 1.7;
-      }
-      @media (max-width: 800px) {
-        .wnrow {
-          flex-direction: column;
-          gap: 36px;
-        }
-      }
-
       /* ---------- 3 · THE 1% (cost of discovery) ---------- */
       .one {
         background: var(--ink);
@@ -498,6 +445,11 @@
         font-size: clamp(26px, 2.6vw, 36px);
         letter-spacing: -0.02em;
         color: var(--accent);
+      }
+      .one .mft {
+        margin-top: 62px;
+        font-size: clamp(18px, 1.9vw, 24px);
+        color: var(--muted);
       }
 
       /* ---------- 4 · FREE (forest photo, centered) ---------- */
@@ -693,7 +645,6 @@
         .methodband,
         .twelve,
         .gates100,
-        .whynow,
         .partners,
         .signup {
           min-height: 100vh;
@@ -705,7 +656,7 @@
         .one .wrap,
         .free .wrap,
         .methodband .wrap,
-        .whynow .wrap,
+        .twelve .wrap,
         .partners .wrap,
         .signup .wrap {
           width: 100%;
@@ -764,14 +715,51 @@
         letter-spacing: -0.02em;
         color: var(--paper);
       }
-      .twelve p {
+      .twelve .wrap {
         position: relative;
-        margin-top: 24px;
-        font-size: 12.5px;
+        z-index: 2;
+        width: 100%;
+      }
+      .tsub {
+        margin: 24px auto 0;
+        max-width: 560px;
+        font-size: 16.5px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.76);
+      }
+      .eq {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: clamp(18px, 3vw, 46px);
+        margin-top: 74px;
+        flex-wrap: wrap;
+      }
+      .eqi b {
+        display: block;
         font-weight: 500;
-        letter-spacing: 0.26em;
+        font-size: clamp(30px, 3.2vw, 46px);
+        letter-spacing: -0.02em;
+        color: #fff;
+      }
+      .eqi.hl b {
+        color: var(--accent);
+      }
+      .eqi span {
+        display: block;
+        margin-top: 12px;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.75);
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.7;
+      }
+      .eqo {
+        font-size: clamp(22px, 2.4vw, 32px);
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.42);
+        line-height: 1.4;
       }
 
       /* ---------- 7 · CAMPUS (mint, full-bleed tiles) ---------- */
@@ -934,12 +922,17 @@
         position: relative;
         padding: 200px 0;
         text-align: center;
-        background: url("assets/decks-vc.jpg") center/cover;
+        background: url("assets/band-path.jpg") center 58% / cover;
       }
       .partners .shade {
         position: absolute;
         inset: 0;
-        background: rgba(4, 7, 5, 0.6);
+        background: radial-gradient(
+          ellipse at 50% 46%,
+          rgba(4, 7, 5, 0.82) 0%,
+          rgba(4, 7, 5, 0.62) 55%,
+          rgba(4, 7, 5, 0.78) 100%
+        );
       }
       .partners .wrap {
         position: relative;
@@ -1320,7 +1313,7 @@
                   <b>12+ yrs</b><span>Scaling<br />startups</span>
                 </div>
                 <div>
-                  <b>Unicorn</b><span>AI security<br />GTM</span>
+                  <b>$1B+</b><span>AI security<br />GTM</span>
                 </div>
                 <div>
                   <b>US/Asia</b><span>Cross-border<br />commerce</span>
@@ -1335,16 +1328,18 @@
     <!-- 3 · THE 1% -->
     <section class="one" id="one">
       <div class="wrap">
-        <h2 class="mst rv">Only 1% of founders <em>raise their round.</em></h2>
+        <h2 class="mst rv">
+          Early-stage due diligence<br /><em>costs too much.</em>
+        </h2>
         <p class="msub rv">
-          Accelerators pay around $110,000 in due diligence to discover each
-          one.
+          Accelerators spend around $110,000 to find a single fundable startup.
         </p>
         <div class="plist rv">
           <div class="prow2"><span>Y Combinator</span><b>$60K</b></div>
           <div class="prow2"><span>Techstars</span><b>$90K</b></div>
           <div class="prow2"><span>500 Global</span><b>$188K</b></div>
         </div>
+        <p class="mft rv">So 99% of founders <em>never get looked at.</em></p>
       </div>
     </section>
 
@@ -1422,17 +1417,30 @@
     <!-- 6 · 1 IN 12 -->
     <section class="twelve">
       <div class="shade"></div>
-      <h2 class="rv">The top 1% close <em>one in twelve calls.</em></h2>
-      <p class="rv">
-        1M+ investor database &middot; 2,000 experts per industry
-      </p>
+      <div class="wrap">
+        <h2 class="rv">
+          Our founders close<br /><em>one in every twelve calls.</em>
+        </h2>
+        <p class="tsub rv">
+          Because every investor is matched before the call is booked.
+        </p>
+        <div class="eq rv">
+          <div class="eqi"><b>1M+</b><span>Investor database</span></div>
+          <div class="eqo">+</div>
+          <div class="eqi"><b>2,000</b><span>Experts per industry</span></div>
+          <div class="eqo">=</div>
+          <div class="eqi hl"><b>$500K</b><span>Funded</span></div>
+        </div>
+      </div>
     </section>
 
     <!-- 7 · WHERE WE FIND TOP 1% FOUNDERS -->
     <section class="campus" id="campus">
       <div class="wrap">
         <div class="kicker rv">Used By Harvard Innovation Labs</div>
-        <h2 class="hd rv">We recruit where <em>unicorns are born.</em></h2>
+        <h2 class="hd rv">
+          We find fundable founders<br /><em>before they graduate.</em>
+        </h2>
       </div>
       <div class="bleed3 rv">
         <div
@@ -1442,7 +1450,7 @@
           <div class="bl">
             <span class="bpill live">Now &middot; 2026</span>
             <div class="bnm">Harvard <em>Cambridge</em></div>
-            <div class="bno">#1 Globally For Unicorns</div>
+            <div class="bno">#1 Globally For Founders</div>
           </div>
         </div>
         <div
@@ -1463,29 +1471,6 @@
             <span class="bpill">Next &middot; 2027</span>
             <div class="bnm">MIT <em>Cambridge</em></div>
             <div class="bno">In Conversation</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7b · WHY NOW -->
-    <section class="whynow" id="whynow">
-      <div class="shade"></div>
-      <div class="wrap">
-        <div class="kctr rv">Why Now</div>
-        <h2 class="rv">A century of friction, <em>removed.</em></h2>
-        <p class="rv msub2">
-          The Equal Opportunity for All Investors Act &middot; 2026
-        </p>
-        <div class="wnrow rv">
-          <div>
-            <b>13.1M</b><span>Startups a year<br />by 2030</span>
-          </div>
-          <div>
-            <b>&minus;70%</b><span>Venture funds raised<br />since 2022</span>
-          </div>
-          <div>
-            <b>1 in 8</b><span>Americans over 35<br />is a millionaire</span>
           </div>
         </div>
       </div>
@@ -1549,7 +1534,7 @@
       <div class="shade"></div>
       <div class="wrap">
         <div class="kctr rv">In 2026, Our Partners Access</div>
-        <h2 class="rv">Future unicorns, <em>before anyone else.</em></h2>
+        <h2 class="rv">Vetted founders, <em>before anyone else.</em></h2>
         <p class="rv msub2">
           Exclusive access to top 1% founders &middot; Qualified dealflow,
           already tested
