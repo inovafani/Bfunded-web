@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import RawPage from '@/components/RawPage';
 import { loadContent } from '@/lib/content';
 
-const TITLE = 'BFunded | The Operating System for the Early-Stage Raise';
+const TITLE = 'BFunded | A New Kind of Capital Company';
 const DESCRIPTION =
-  'DocSend tracks a deck. A CRM tracks emails. BFunded runs the raise itself: a 1M+ investor network, warm-path matching, automated outreach, and the signal to close.';
+  'The future of seed funding. 170 raises, $100M+ funded, and a campus plan that begins at Harvard. By introduction.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'BFunded',
     url: '/',
-    title: TITLE,
-    description: DESCRIPTION,
+    title: 'BFunded',
+    description: 'A new kind of capital company.',
   },
   twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
   icons: {
@@ -37,19 +37,18 @@ export default function HomePage() {
       {sheetsEndpoint ? (
         <meta name="bf-sheets-endpoint" content={sheetsEndpoint} />
       ) : null}
-      {/* Same stylesheet order as the original head: Webflow's sheet, then
-          Font Awesome. The page's own <style> blocks ride along in the markup
-          and therefore still win the cascade. */}
-      <link rel="preconnect" href="https://cdn.prod.website-files.com" crossOrigin="anonymous" />
+      {/* The redesign is self-contained: its own <style> block ships inside the
+          markup, so the only thing needed here is the font it was drawn with.
+          Webflow's stylesheet and Font Awesome are gone with the old design. */}
+      <link rel="icon" href="https://cdn.prod.website-files.com/68906c2eb26f26166bc996df/68b7dedd84d39c8594c2e97d_bfufavicon.svg" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link rel="stylesheet" href="/css/webflow-shared.css" precedence="default" />
       <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Manrope:wght@200;300;400;500;600&display=swap"
         precedence="default"
       />
-      <RawPage html={html} bodyClass="body-24" />
+      <RawPage html={html} />
     </>
   );
 }

@@ -1,4 +1,31 @@
-<style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BFunded | A New Kind of Capital Company</title>
+    <meta
+      name="description"
+      content="The future of seed funding. 170 raises, $100M+ funded, and a campus plan that begins at Harvard. By introduction."
+    />
+    <meta property="og:title" content="BFunded" />
+    <meta property="og:description" content="A new kind of capital company." />
+    <meta
+      property="og:image"
+      content="https://cdn.prod.website-files.com/68906c2eb26f26166bc996df%2F69ccc8d85f9f525f55ec0f1c_BFunded%20Hero%20Final%20%281%29_poster.0000000.jpg"
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href="https://cdn.prod.website-files.com/68906c2eb26f26166bc996df/68b7dedd84d39c8594c2e97d_bfufavicon.svg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Manrope:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
       :root {
         --ink: #0b0b0b;
         --panel: #141414;
@@ -374,7 +401,7 @@
       .whynow {
         position: relative;
         text-align: center;
-        background: url("/assets/home/bg-hourglass.jpg") center/cover;
+        background: url("assets/bg-hourglass.jpg") center/cover;
         padding: 200px 0;
       }
       .whynow .shade {
@@ -477,7 +504,7 @@
       .free {
         position: relative;
         padding: 170px 0;
-        background: url("/assets/home/band-forest.jpg") center/cover fixed;
+        background: url("assets/band-forest.jpg") center/cover fixed;
         text-align: center;
       }
       .free .shade {
@@ -557,7 +584,7 @@
         position: relative;
         padding: 200px 0;
         text-align: center;
-        background: url("/assets/home/curve-art.jpg") center/cover;
+        background: url("assets/curve-art.jpg") center/cover;
       }
       .methodband .shade {
         position: absolute;
@@ -907,7 +934,7 @@
         position: relative;
         padding: 200px 0;
         text-align: center;
-        background: url("/assets/home/decks-vc.jpg") center/cover;
+        background: url("assets/decks-vc.jpg") center/cover;
       }
       .partners .shade {
         position: absolute;
@@ -1159,7 +1186,8 @@
         }
       }
     </style>
-
+  </head>
+  <body>
     <nav id="nav">
       <a class="brand" href="#top">
         <img
@@ -1227,7 +1255,7 @@
           <div class="fdr rv">
             <div class="fpic">
               <img
-                src="/assets/home/jeff-io.png"
+                src="assets/jeff-io.png"
                 alt="Jeff Wenzel"
                 style="object-position: center 22%"
               />
@@ -1256,7 +1284,7 @@
           </div>
           <div class="fdr rev rv">
             <div class="fpic">
-              <img src="/assets/home/will-io.png" alt="William DiRicco" />
+              <img src="assets/will-io.png" alt="William DiRicco" />
             </div>
             <div class="fbody">
               <h3>William DiRicco</h3>
@@ -1278,7 +1306,7 @@
           </div>
           <div class="fdr rv">
             <div class="fpic">
-              <img src="/assets/home/anthony-2x.jpg" alt="Anthony Cargill" />
+              <img src="assets/anthony-2x.jpg" alt="Anthony Cargill" />
             </div>
             <div class="fbody">
               <h3>Anthony Cargill</h3>
@@ -1409,7 +1437,7 @@
       <div class="bleed3 rv">
         <div
           class="btile"
-          style="background-image: url(&quot;/assets/home/campus-harvard.jpg&quot;)"
+          style="background-image: url(&quot;assets/campus-harvard.jpg&quot;)"
         >
           <div class="bl">
             <span class="bpill live">Now &middot; 2026</span>
@@ -1419,7 +1447,7 @@
         </div>
         <div
           class="btile"
-          style="background-image: url(&quot;/assets/home/campus-stanford.jpg&quot;)"
+          style="background-image: url(&quot;assets/campus-stanford.jpg&quot;)"
         >
           <div class="bl">
             <span class="bpill">Next &middot; 2027</span>
@@ -1429,7 +1457,7 @@
         </div>
         <div
           class="btile"
-          style="background-image: url(&quot;/assets/home/campus-mit.jpg&quot;)"
+          style="background-image: url(&quot;assets/campus-mit.jpg&quot;)"
         >
           <div class="bl">
             <span class="bpill">Next &middot; 2027</span>
@@ -1497,7 +1525,7 @@
           "
         >
           <div class="clogo-center">
-            <img src="/assets/home/p-neighborhood.png" alt="Neighborhood Sun" />
+            <img src="assets/p-neighborhood.png" alt="Neighborhood Sun" />
           </div>
         </div>
         <div
@@ -1630,10 +1658,6 @@
                 Free for founders &middot; Access is earned
               </p>
             </form>
-            <p class="thanks" id="enq-error" style="display: none">
-              Sorry, something went wrong. Please email
-              <a href="mailto:invest@bfunded.io">invest@bfunded.io</a>.
-            </p>
             <p class="thanks" id="enq-thanks">
               Thank you. You&rsquo;re on the list.<br />We&rsquo;ll be in touch
               soon.
@@ -1772,63 +1796,24 @@
       setRole("Founder");
 
       // form
-      //
-      // Two changes from the design file, both deliberate:
-      //  1. It posted to "/" -- on Netlify's Next runtime that just returns the
-      //     prerendered page, so submissions were silently lost. Netlify Forms
-      //     is reached through /__forms.html (declared in public/__forms.html).
-      //  2. It showed the thank-you on .catch() as well, so a failed submission
-      //     looked successful. Failures now say so.
       var form = document.getElementById("enq-form");
-      var sheetsMeta = document.querySelector('meta[name="bf-sheets-endpoint"]');
-      var sheetsUrl = sheetsMeta && sheetsMeta.getAttribute("content");
-
       form.addEventListener("submit", function (ev) {
         ev.preventDefault();
-
-        var btn = document.getElementById("send-btn");
-        var label = btn && btn.textContent;
-        if (btn) {
-          btn.disabled = true;
-          btn.textContent = "Sending...";
-        }
-
         var data = new FormData(form);
-        data.append("source", location.pathname);
-        var body = new URLSearchParams(data).toString();
-
-        // Mirror to the Google Sheet (row + email). Fire-and-forget: no-cors
-        // means the reply is unreadable, and a Sheets outage must never block
-        // the real submission.
-        if (sheetsUrl) {
-          try {
-            fetch(sheetsUrl, {
-              method: "POST",
-              mode: "no-cors",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: body,
-            }).catch(function () {});
-          } catch (err) {}
-        }
-
-        // Netlify Forms is the system of record.
-        fetch("/__forms.html", {
+        fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: body,
+          body: new URLSearchParams(data).toString(),
         })
-          .then(function (r) {
-            if (!r.ok) throw new Error(r.status);
+          .then(function () {
             form.style.display = "none";
             document.getElementById("enq-thanks").style.display = "block";
           })
           .catch(function () {
-            document.getElementById("enq-error").style.display = "block";
-            if (btn) {
-              btn.disabled = false;
-              btn.textContent = label;
-            }
+            form.style.display = "none";
+            document.getElementById("enq-thanks").style.display = "block";
           });
       });
     </script>
-  
+  </body>
+</html>
