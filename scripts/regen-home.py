@@ -13,7 +13,9 @@ It keeps the design byte-for-byte except for three things it must change:
      those files in `public/assets/home/`.
   2. An error state. The design has a success message but no failure one, so a
      failed submission would leave the visitor with no feedback.
-  3. The submit handler. The design posts to "/" -- which on Netlify's Next
+  3. Cross-page nav links. The design's navbar is all same-page anchors, so
+     /engine and /about would be unreachable from the home page.
+  4. The submit handler. The design posts to "/" -- which on Netlify's Next
      runtime just returns the prerendered page, losing the submission -- and
      shows the thank-you from .catch() as well, so failures look like successes.
      It is repointed at /__forms.html (Netlify Forms) with a fire-and-forget
@@ -93,6 +95,13 @@ SUBMIT_HANDLER = '''      // form
           });
 '''
 
+# The design's navbar links only to anchors on its own page. These two routes
+# exist in this app and need a way in; labels agreed with the team.
+NAV_LINKS = (
+    '\n        <a href="/engine">Platform</a>'
+    '\n        <a href="/about">About</a>'
+)
+
 ERROR_EL = (
     '<p class="thanks" id="enq-error" style="display: none">\n'
     '              Sorry, something went wrong. Please email\n'
@@ -131,7 +140,20 @@ def main():
         fail(f'expected exactly one #enq-thanks, found {html.count(anchor)}')
     html = html.replace(anchor, ERROR_EL + anchor, 1)
 
-    # 3 - submit handler
+    # 3 - cross-page nav links
+    nav_open = '<div class="navmid">'
+    if html.count(nav_open) != 1:
+        fail(f'expected exactly one .navmid nav, found {html.count(nav_open)}')
+    nav_end = html.find('</div>', html.index(nav_open))
+    if nav_end == -1:
+        fail('could not find the end of the .navmid nav')
+    if '/engine' in html[:nav_end] or '/about' in html[:nav_end]:
+        fail('nav already contains /engine or /about -- design may now include them')
+    # insert straight after the last existing link, so no orphan blank line
+    head, tail = html[:nav_end].rstrip(), html[nav_end:]
+    html = head + NAV_LINKS + '\n      ' + tail
+
+    # 4 - submit handler
     start = html.find('      // form\n      var form = document.getElementById("enq-form");')
     if start == -1:
         fail('could not find the design\'s submit handler -- inspect it by hand')
@@ -148,6 +170,7 @@ def main():
     print(f'wrote {DST.relative_to(ROOT)}  ({len(html)} chars, {html.count(chr(10)) + 1} lines)')
     print(f'  asset paths rewritten : {n_assets}')
     print(f'  error state added     : yes')
+    print(f'  nav links added       : /engine (Platform), /about (About)')
     print(f'  submit handler        : repointed at /__forms.html + Sheets mirror')
 
 
