@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import RawPage from '@/components/RawPage';
 import { loadContent } from '@/lib/content';
 
-const TITLE = 'BFunded | A New Kind of Capital Company';
+const TITLE = 'BFunded | Fundraising Infrastructure for Startups';
 const DESCRIPTION =
-  'The future of seed funding. 170 raises, $100M+ funded, and a campus plan that begins at Harvard. By introduction.';
+  'BFunded helps startups raise capital with investor targeting, automated outreach, high-converting raise pages and end-to-end fundraising infrastructure.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -16,8 +16,26 @@ export const metadata: Metadata = {
     url: '/',
     title: 'BFunded',
     description: 'A new kind of capital company.',
+    // The hero video's own poster frame, self-hosted rather than linked from
+    // Webflow's CDN: that URL is percent-encoded (%2F, %20), which some social
+    // crawlers mishandle. 1280x720 -- above every platform's minimum, though
+    // slightly taller than the 1.91:1 they crop to.
+    images: [
+      {
+        url: '/video/hero-poster.jpg',
+        width: 1280,
+        height: 720,
+        type: 'image/jpeg',
+        alt: 'BFunded',
+      },
+    ],
   },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['/video/hero-poster.jpg'],
+  },
   icons: {
     icon: 'https://cdn.prod.website-files.com/68906c2eb26f26166bc996df/68b7dedd84d39c8594c2e97d_bfufavicon.svg',
     apple:
