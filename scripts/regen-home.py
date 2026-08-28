@@ -13,8 +13,9 @@ It keeps the design byte-for-byte except for three things it must change:
      those files in `public/assets/home/`.
   2. An error state. The design has a success message but no failure one, so a
      failed submission would leave the visitor with no feedback.
-  3. Cross-page nav links. The design's navbar is all same-page anchors, so
-     /engine and /about would be unreachable from the home page.
+  3. Navbar and footer links. The design's are all same-page anchors, so
+     /engine and /about would be unreachable from the home page. Both lists are
+     replaced with those two routes; the "Get Started" CTA is left alone.
   4. The submit handler. The design posts to "/" -- which on Netlify's Next
      runtime just returns the prerendered page, losing the submission -- and
      shows the thank-you from .catch() as well, so failures look like successes.
@@ -95,11 +96,31 @@ SUBMIT_HANDLER = '''      // form
           });
 '''
 
-# The design's navbar links only to anchors on its own page. These two routes
-# exist in this app and need a way in; labels agreed with the team.
-NAV_LINKS = (
-    '\n        <a href="/engine">Platform</a>'
-    '\n        <a href="/about">About</a>'
+# The design's navbar and footer link only to anchors on its own page. Both are
+# replaced with the two real routes this app serves. The "Get Started" CTA is
+# left alone -- it is the only way into the signup form.
+NAV_HTML = (
+    '<div class="navmid">\n'
+    '        <a href="/engine">Platform</a>\n'
+    '        <a href="/about">About</a>\n'
+    '      </div>'
+)
+# The design centres the nav links between the logo and the CTA. We want them
+# beside the logo instead. Appended as an override rather than edited into the
+# design's own rule, so it still applies if that rule is restyled upstream.
+# Left untouched: the max-width:900px rule that hides .navmid on mobile.
+NAV_STYLE = (
+    '\n<style>\n'
+    '  /* nav links beside the logo, not centred */\n'
+    '  nav .navmid { margin-left: 40px; margin-right: auto; }\n'
+    '</style>\n'
+)
+
+FOOTER_LINKS = (
+    '<ul>\n'
+    '              <li><a href="/engine">Platform</a></li>\n'
+    '              <li><a href="/about">About</a></li>\n'
+    '            </ul>'
 )
 
 ERROR_EL = (
@@ -140,18 +161,31 @@ def main():
         fail(f'expected exactly one #enq-thanks, found {html.count(anchor)}')
     html = html.replace(anchor, ERROR_EL + anchor, 1)
 
-    # 3 - cross-page nav links
+    # 3 - navbar and footer point at the real routes, not same-page anchors
     nav_open = '<div class="navmid">'
     if html.count(nav_open) != 1:
         fail(f'expected exactly one .navmid nav, found {html.count(nav_open)}')
-    nav_end = html.find('</div>', html.index(nav_open))
+    nav_start = html.index(nav_open)
+    nav_end = html.find('</div>', nav_start)
     if nav_end == -1:
         fail('could not find the end of the .navmid nav')
-    if '/engine' in html[:nav_end] or '/about' in html[:nav_end]:
-        fail('nav already contains /engine or /about -- design may now include them')
-    # insert straight after the last existing link, so no orphan blank line
-    head, tail = html[:nav_end].rstrip(), html[nav_end:]
-    html = head + NAV_LINKS + '\n      ' + tail
+    html = html[:nav_start] + NAV_HTML + html[nav_end + len('</div>'):]
+
+    # nav links to the left, beside the logo
+    last_style = html.rfind('</style>')
+    if last_style == -1:
+        fail('no <style> block found -- cannot append the nav override')
+    ins = last_style + len('</style>')
+    html = html[:ins] + NAV_STYLE + html[ins:]
+
+    explore = '<h4>Explore</h4>'
+    if html.count(explore) != 1:
+        fail(f'expected exactly one footer Explore column, found {html.count(explore)}')
+    ul_start = html.find('<ul>', html.index(explore))
+    ul_end = html.find('</ul>', ul_start)
+    if ul_start == -1 or ul_end == -1:
+        fail('could not find the footer Explore list')
+    html = html[:ul_start] + FOOTER_LINKS + html[ul_end + len('</ul>'):]
 
     # 4 - submit handler
     start = html.find('      // form\n      var form = document.getElementById("enq-form");')
@@ -170,7 +204,8 @@ def main():
     print(f'wrote {DST.relative_to(ROOT)}  ({len(html)} chars, {html.count(chr(10)) + 1} lines)')
     print(f'  asset paths rewritten : {n_assets}')
     print(f'  error state added     : yes')
-    print(f'  nav links added       : /engine (Platform), /about (About)')
+    print(f'  nav + footer links    : Platform (/engine), About (/about)')
+    print(f'  nav alignment         : links moved beside the logo')
     print(f'  submit handler        : repointed at /__forms.html + Sheets mirror')
 
 
