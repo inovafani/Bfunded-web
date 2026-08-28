@@ -16,7 +16,9 @@ It keeps the design byte-for-byte except for three things it must change:
   3. Navbar and footer links. The design's are all same-page anchors, so
      /engine and /about would be unreachable from the home page. Both lists are
      replaced with those two routes; the "Get Started" CTA is left alone.
-  4. The submit handler. The design posts to "/" -- which on Netlify's Next
+  4. Section order. The campus tiles are moved up to sit directly after the
+     "What if due diligence was free?" panel.
+  5. The submit handler. The design posts to "/" -- which on Netlify's Next
      runtime just returns the prerendered page, losing the submission -- and
      shows the thank-you from .catch() as well, so failures look like successes.
      It is repointed at /__forms.html (Netlify Forms) with a fire-and-forget
@@ -131,6 +133,29 @@ ERROR_EL = (
 )
 
 
+def section_span(html, class_name):
+    """Start/end offsets of a top-level <section class="...NAME..."> block.
+
+    Walks nested <section> tags so the matching </section> is the right one.
+    """
+    m = re.search(r'<section\b[^>]*class="[^"]*\b' + re.escape(class_name) + r'\b[^"]*"[^>]*>', html)
+    if not m:
+        return None
+    depth, i = 1, m.end()
+    while i < len(html) and depth:
+        nxt_open = html.find('<section', i)
+        nxt_close = html.find('</section>', i)
+        if nxt_close == -1:
+            return None
+        if nxt_open != -1 and nxt_open < nxt_close:
+            depth += 1
+            i = nxt_open + len('<section')
+        else:
+            depth -= 1
+            i = nxt_close + len('</section>')
+    return (m.start(), i)
+
+
 def fail(msg):
     sys.exit(f'regen-home: {msg}')
 
@@ -187,7 +212,20 @@ def main():
         fail('could not find the footer Explore list')
     html = html[:ul_start] + FOOTER_LINKS + html[ul_end + len('</ul>'):]
 
-    # 4 - submit handler
+    # 4 - section order: the campus tiles read better straight after the
+    # "What if due diligence was free?" panel than buried further down.
+    campus = section_span(html, 'campus')
+    if not campus:
+        fail('could not find the .campus section to move')
+    block = html[campus[0]:campus[1]]
+    rest = html[:campus[0]].rstrip() + '\n\n' + html[campus[1]:].lstrip('\n')
+
+    free = section_span(rest, 'free')
+    if not free:
+        fail('could not find the .free section to move .campus after')
+    html = rest[:free[1]] + '\n\n    ' + block + rest[free[1]:]
+
+    # 5 - submit handler
     start = html.find('      // form\n      var form = document.getElementById("enq-form");')
     if start == -1:
         fail('could not find the design\'s submit handler -- inspect it by hand')
@@ -206,6 +244,7 @@ def main():
     print(f'  error state added     : yes')
     print(f'  nav + footer links    : Platform (/engine), About (/about)')
     print(f'  nav alignment         : links moved beside the logo')
+    print(f'  section order         : .campus moved below .free')
     print(f'  submit handler        : repointed at /__forms.html + Sheets mirror')
 
 
