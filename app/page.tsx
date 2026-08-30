@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import RawPage from '@/components/RawPage';
 import { loadContent } from '@/lib/content';
+import { SITE_URL } from '@/lib/site';
 
 const TITLE = 'BFunded | Fundraising Infrastructure for Startups';
 const DESCRIPTION =
@@ -50,8 +51,41 @@ export default function HomePage() {
   // Unset = the form still works; it just skips the mirror.
   const sheetsEndpoint = process.env.NEXT_PUBLIC_SHEETS_ENDPOINT;
 
+  // Google reads the site name shown under search results from WebSite
+  // structured data on the homepage. Without it, it falls back to whatever it
+  // inferred before -- which is why results were still labelled "Webflow".
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        url: `${SITE_URL}/`,
+        name: 'BFunded',
+        publisher: { '@id': `${SITE_URL}/#organization` },
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${SITE_URL}/#organization`,
+        name: 'BFunded',
+        url: `${SITE_URL}/`,
+        logo: `${SITE_URL}/video/hero-poster.jpg`,
+        description: DESCRIPTION,
+        sameAs: [
+          'https://www.linkedin.com/company/bfunded/',
+          'https://www.instagram.com/bfunded.io/',
+          'https://x.com/BfundedOfficial',
+        ],
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {sheetsEndpoint ? (
         <meta name="bf-sheets-endpoint" content={sheetsEndpoint} />
       ) : null}
