@@ -1,4 +1,31 @@
-<style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BFunded | A New Kind of Capital Company</title>
+    <meta
+      name="description"
+      content="The future of seed funding. 170 raises, $100M+ funded, and a campus plan that begins at Harvard. By introduction."
+    />
+    <meta property="og:title" content="BFunded" />
+    <meta property="og:description" content="A new kind of capital company." />
+    <meta
+      property="og:image"
+      content="https://cdn.prod.website-files.com/68906c2eb26f26166bc996df%2F69ccc8d85f9f525f55ec0f1c_BFunded%20Hero%20Final%20%281%29_poster.0000000.jpg"
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href="https://cdn.prod.website-files.com/68906c2eb26f26166bc996df/68b7dedd84d39c8594c2e97d_bfufavicon.svg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Manrope:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
       :root {
         --ink: #0b0b0b;
         --panel: #141414;
@@ -434,7 +461,7 @@
       .free {
         position: relative;
         padding: 170px 0;
-        background: url("/assets/home/band-forest.jpg") center/cover fixed;
+        background: url("assets/band-forest.jpg") center/cover fixed;
         text-align: center;
       }
       .free .shade {
@@ -456,42 +483,19 @@
         line-height: 1.8;
         color: rgba(255, 255, 255, 0.75);
       }
-      .shift {
-        display: flex;
-        justify-content: center;
-        gap: clamp(44px, 7vw, 110px);
-        margin-top: 90px;
-      }
-      .sh .lbl {
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.65);
-      }
-      .sh .delta {
-        margin-top: 16px;
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        gap: 14px;
-      }
-      .sh .delta s {
-        text-decoration: none;
-        font-weight: 400;
-        font-size: clamp(22px, 2.2vw, 30px);
-        color: rgba(255, 255, 255, 0.55);
-      }
-      .sh .delta i {
+      .prow2 b i {
         font-style: normal;
-        color: rgba(255, 255, 255, 0.4);
-        font-size: 18px;
+        font-weight: 400;
+        font-size: 0.62em;
+        color: rgba(255, 255, 255, 0.5);
       }
-      .sh .delta b {
-        font-weight: 500;
-        font-size: clamp(32px, 3.2vw, 46px);
-        letter-spacing: -0.02em;
-        color: var(--accent);
+      .prow2 b i:after {
+        content: "\2192";
+        margin: 0 12px;
+        color: rgba(255, 255, 255, 0.38);
+      }
+      .free .plist {
+        margin-top: 74px;
       }
       .free .foot {
         margin-top: 96px;
@@ -503,10 +507,6 @@
         .free {
           background-attachment: scroll;
         }
-        .shift {
-          flex-direction: column;
-          gap: 40px;
-        }
       }
 
       /* ---------- 5 · METHOD (curve band) ---------- */
@@ -514,7 +514,7 @@
         position: relative;
         padding: 200px 0;
         text-align: center;
-        background: url("/assets/home/curve-art.jpg") center/cover;
+        background: url("assets/curve-art.jpg") center/cover;
       }
       .methodband .shade {
         position: absolute;
@@ -649,7 +649,7 @@
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
-          padding: 110px 0 0;
+          padding: 104px 0 0;
         }
         .campus .wrap,
         .past .wrap {
@@ -660,7 +660,10 @@
         .past .bleed3 {
           flex: 1 1 auto;
           min-height: 0;
-          margin-top: 48px;
+          margin-top: 38px;
+        }
+        .campus .bleed3.six {
+          grid-template-rows: repeat(2, minmax(0, 1fr));
         }
         .campus .btile,
         .past .btile {
@@ -752,12 +755,8 @@
       .campus h2 {
         color: #0b0b0b;
       }
-      .campus .sub {
-        margin-top: 26px;
-        max-width: 560px;
-        font-size: 15.5px;
-        line-height: 1.8;
-        color: var(--mutedlight);
+      .campus h2.hd {
+        font-size: clamp(32px, 3.6vw, 50px);
       }
       .campus .open {
         padding: 56px 6vw;
@@ -814,6 +813,10 @@
         color: #06130d;
         font-weight: 700;
       }
+      .bl .bpill.pending {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
       .bl .blogo {
         margin-top: 18px;
         height: 58px;
@@ -852,6 +855,29 @@
         line-height: 1.6;
         color: rgba(255, 255, 255, 0.85);
       }
+      .bleed3.six .bl {
+        left: 22px;
+        right: 22px;
+        bottom: 20px;
+      }
+      .bleed3.six .bpill {
+        font-size: 9.5px;
+        letter-spacing: 0.18em;
+        padding: 6px 11px;
+      }
+      .bleed3.six .bnm {
+        margin-top: 13px;
+        font-size: clamp(19px, 1.7vw, 24px);
+      }
+      .bleed3.six .bnm em {
+        font-size: 0.76em;
+        margin-left: 6px;
+      }
+      .bleed3.six .bno {
+        margin-top: 7px;
+        font-size: 9.5px;
+        letter-spacing: 0.16em;
+      }
       .clogo-center {
         position: absolute;
         inset: 0;
@@ -877,6 +903,11 @@
           min-height: 340px;
         }
       }
+      @media (max-width: 1100px) and (min-width: 901px) {
+        .bleed3.six {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
 
       /* ---------- 8 · PAST FOUNDERS (full-bleed tiles) ---------- */
       .past {
@@ -900,7 +931,7 @@
         position: relative;
         padding: 200px 0;
         text-align: center;
-        background: url("/assets/home/band-path.jpg") center 58% / cover;
+        background: url("assets/band-path.jpg") center 58% / cover;
       }
       .partners .shade {
         position: absolute;
@@ -1157,12 +1188,8 @@
         }
       }
     </style>
-<style>
-  /* nav links beside the logo, not centred */
-  nav .navmid { margin-left: 40px; margin-right: auto; }
-</style>
-
-
+  </head>
+  <body>
     <nav id="nav">
       <a class="brand" href="#top">
         <img
@@ -1171,8 +1198,9 @@
         />
       </a>
       <div class="navmid">
-        <a href="/engine">Platform</a>
-        <a href="/about">About</a>
+        <a href="#team">The Team</a>
+        <a href="#method">The Method</a>
+        <a href="#past">Founders</a>
       </div>
       <a class="navcta" href="#signup"
         >Get Started
@@ -1208,12 +1236,12 @@
         </div>
         <div class="hstats">
           <div class="hstat">
-            <b>1M+</b><span class="lab">Investor Network</span>
+            <b>10+</b><span class="lab">Years of raise operations</span>
           </div>
           <div class="hstat">
-            <b>100X</b><span class="lab">Cheaper due diligence</span>
+            <b>1M+</b><span class="lab">Investor network</span>
           </div>
-          <div class="hstat"><b>$100M+</b><span class="lab">Raised</span></div>
+          <div class="hstat"><b>100M+</b><span class="lab">Raised</span></div>
         </div>
       </div>
     </header>
@@ -1229,7 +1257,7 @@
           <div class="fdr rv">
             <div class="fpic">
               <img
-                src="/assets/home/jeff-io.png"
+                src="assets/jeff-io.png"
                 alt="Jeff Wenzel"
                 style="object-position: center 22%"
               />
@@ -1258,7 +1286,7 @@
           </div>
           <div class="fdr rev rv">
             <div class="fpic">
-              <img src="/assets/home/will-io.png" alt="William DiRicco" />
+              <img src="assets/will-io.png" alt="William DiRicco" />
             </div>
             <div class="fbody">
               <h3>William DiRicco</h3>
@@ -1280,7 +1308,7 @@
           </div>
           <div class="fdr rv">
             <div class="fpic">
-              <img src="/assets/home/anthony-2x.jpg" alt="Anthony Cargill" />
+              <img src="assets/anthony-2x.jpg" alt="Anthony Cargill" />
             </div>
             <div class="fbody">
               <h3>Anthony Cargill</h3>
@@ -1331,24 +1359,22 @@
         <h2 class="hd rv" style="margin-top: 0">
           What if due diligence <em>was free?</em>
         </h2>
-        <div class="shift rv">
-          <div class="sh">
-            <div class="lbl">Women Founders</div>
-            <div class="delta"><s>2%</s><i>&rarr;</i><b>10%</b></div>
+        <div class="plist rv">
+          <div class="prow2">
+            <span>Women founders</span><b><i>2%</i>10%</b>
           </div>
-          <div class="sh">
-            <div class="lbl">Solo Founders</div>
-            <div class="delta"><s>17%</s><i>&rarr;</i><b>35%</b></div>
+          <div class="prow2">
+            <span>Solo founders</span><b><i>17%</i>35%</b>
           </div>
-          <div class="sh">
-            <div class="lbl">Technical Founders</div>
-            <div class="delta"><s>21%</s><i>&rarr;</i><b>42%</b></div>
+          <div class="prow2">
+            <span>Technical founders</span><b><i>21%</i>42%</b>
           </div>
         </div>
-        <p class="foot rv">More top 1% founders <em>get discovered.</em></p>
+        <p class="foot rv">More fundable founders <em>get discovered.</em></p>
       </div>
     </section>
 
+    <!-- 7 · WHERE WE FIND TOP 1% FOUNDERS -->
     <section class="campus" id="campus">
       <div class="wrap">
         <div class="kicker rv">Used By Harvard Innovation Labs</div>
@@ -1356,20 +1382,40 @@
           We find fundable founders<br /><em>before they graduate.</em>
         </h2>
       </div>
-      <div class="bleed3 rv">
+      <div class="bleed3 six rv">
         <div
           class="btile"
-          style="background-image: url(&quot;/assets/home/campus-harvard.jpg&quot;)"
+          style="background-image: url(&quot;assets/campus-harvard.jpg&quot;)"
         >
           <div class="bl">
             <span class="bpill live">Now &middot; 2026</span>
-            <div class="bnm">Harvard <em>Cambridge</em></div>
+            <div class="bnm">Harvard <em>Cambridge, MA</em></div>
             <div class="bno">#1 Globally For Founders</div>
           </div>
         </div>
         <div
           class="btile"
-          style="background-image: url(&quot;/assets/home/campus-stanford.jpg&quot;)"
+          style="background-image: url(&quot;assets/campus-oxford.jpg&quot;)"
+        >
+          <div class="bl">
+            <span class="bpill pending">Pending</span>
+            <div class="bnm">Oxford <em>England</em></div>
+            <div class="bno">Europe</div>
+          </div>
+        </div>
+        <div
+          class="btile"
+          style="background-image: url(&quot;assets/campus-cambridge.jpg&quot;)"
+        >
+          <div class="bl">
+            <span class="bpill pending">Pending</span>
+            <div class="bnm">Cambridge <em>England</em></div>
+            <div class="bno">Europe</div>
+          </div>
+        </div>
+        <div
+          class="btile"
+          style="background-image: url(&quot;assets/campus-stanford.jpg&quot;)"
         >
           <div class="bl">
             <span class="bpill">Next &middot; 2027</span>
@@ -1379,84 +1425,26 @@
         </div>
         <div
           class="btile"
-          style="background-image: url(&quot;/assets/home/campus-mit.jpg&quot;)"
+          style="background-image: url(&quot;assets/campus-mit.jpg&quot;)"
         >
           <div class="bl">
             <span class="bpill">Next &middot; 2027</span>
-            <div class="bnm">MIT <em>Cambridge</em></div>
+            <div class="bnm">MIT <em>Cambridge, MA</em></div>
+            <div class="bno">In Conversation</div>
+          </div>
+        </div>
+        <div
+          class="btile"
+          style="background-image: url(&quot;assets/campus-berkeley.jpg&quot;)"
+        >
+          <div class="bl">
+            <span class="bpill">Next &middot; 2027</span>
+            <div class="bnm">Berkeley <em>California</em></div>
             <div class="bno">In Conversation</div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- 5 · HOW WE FIND THE TOP 1% -->
-    <section class="methodband" id="method">
-      <div class="shade"></div>
-      <div class="wrap">
-        <div class="kctr rv">The Method</div>
-        <h2 class="rv">Five tests. <em>Access is earned.</em></h2>
-        <p class="rv msub2">
-          Founders pass our tests for access to qualified investors.
-        </p>
-      </div>
-    </section>
-
-    <!-- 5b · THE FIVE TESTS -->
-    <section class="gates100" id="tests">
-      <div class="wrap">
-        <div class="kctr rv">The Five Tests</div>
-        <div class="gates rv">
-          <div class="gate">
-            <span class="gno">Test 001</span
-            ><span class="gnm">Deck + website uploaded</span
-            ><b class="gval">25<i>Matched investors</i></b>
-          </div>
-          <div class="gate">
-            <span class="gno">Test 002</span
-            ><span class="gnm">AI due diligence passed</span
-            ><b class="gval">100<i>Matched investors</i></b>
-          </div>
-          <div class="gate">
-            <span class="gno">Test 003</span
-            ><span class="gnm">Five calls scheduled</span
-            ><b class="gval">250<i>Matched investors</i></b>
-          </div>
-          <div class="gate">
-            <span class="gno">Test 004</span
-            ><span class="gnm">First investor closed</span
-            ><b class="gval">500<i>Matched investors</i></b>
-          </div>
-          <div class="gate">
-            <span class="gno">Test 005</span
-            ><span class="gnm">Three investors closed</span
-            ><b class="gval">2,000+<i>Every expert in your industry</i></b>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6 · 1 IN 12 -->
-    <section class="twelve">
-      <div class="shade"></div>
-      <div class="wrap">
-        <h2 class="rv">
-          Our founders close<br /><em>one in every twelve calls.</em>
-        </h2>
-        <p class="tsub rv">
-          Because every investor is matched before the call is booked.
-        </p>
-        <div class="eq rv">
-          <div class="eqi"><b>1M+</b><span>Investor database</span></div>
-          <div class="eqo">+</div>
-          <div class="eqi"><b>2,000</b><span>Experts per industry</span></div>
-          <div class="eqo">=</div>
-          <div class="eqi hl"><b>$500K</b><span>Funded</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7 · WHERE WE FIND TOP 1% FOUNDERS -->
 
     <!-- 8 · PAST FOUNDERS -->
     <section class="past" id="past">
@@ -1492,7 +1480,7 @@
           "
         >
           <div class="clogo-center">
-            <img src="/assets/home/p-neighborhood.png" alt="Neighborhood Sun" />
+            <img src="assets/p-neighborhood.png" alt="Neighborhood Sun" />
           </div>
         </div>
         <div
@@ -1625,10 +1613,6 @@
                 Free for founders &middot; Access is earned
               </p>
             </form>
-            <p class="thanks" id="enq-error" style="display: none">
-              Sorry, something went wrong. Please email
-              <a href="mailto:invest@bfunded.io">invest@bfunded.io</a>.
-            </p>
             <p class="thanks" id="enq-thanks">
               Thank you. You&rsquo;re on the list.<br />We&rsquo;ll be in touch
               soon.
@@ -1658,8 +1642,11 @@
           <div>
             <h4>Explore</h4>
             <ul>
-              <li><a href="/engine">Platform</a></li>
-              <li><a href="/about">About</a></li>
+              <li><a href="#team">The Team</a></li>
+              <li><a href="#one">The 1%</a></li>
+              <li><a href="#method">The Method</a></li>
+              <li><a href="#past">Past Founders</a></li>
+              <li><a href="#signup">Sign Up</a></li>
             </ul>
           </div>
           <div>
@@ -1764,63 +1751,24 @@
       setRole("Founder");
 
       // form
-      //
-      // Two changes from the design file, both deliberate:
-      //  1. It posted to "/" -- on Netlify's Next runtime that just returns the
-      //     prerendered page, so submissions were silently lost. Netlify Forms
-      //     is reached through /__forms.html (declared in public/__forms.html).
-      //  2. It showed the thank-you on .catch() as well, so a failed submission
-      //     looked successful. Failures now say so.
       var form = document.getElementById("enq-form");
-      var sheetsMeta = document.querySelector('meta[name="bf-sheets-endpoint"]');
-      var sheetsUrl = sheetsMeta && sheetsMeta.getAttribute("content");
-
       form.addEventListener("submit", function (ev) {
         ev.preventDefault();
-
-        var btn = document.getElementById("send-btn");
-        var label = btn && btn.textContent;
-        if (btn) {
-          btn.disabled = true;
-          btn.textContent = "Sending...";
-        }
-
         var data = new FormData(form);
-        data.append("source", location.pathname);
-        var body = new URLSearchParams(data).toString();
-
-        // Mirror to the Google Sheet (row + email). Fire-and-forget: no-cors
-        // means the reply is unreadable, and a Sheets outage must never block
-        // the real submission.
-        if (sheetsUrl) {
-          try {
-            fetch(sheetsUrl, {
-              method: "POST",
-              mode: "no-cors",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: body,
-            }).catch(function () {});
-          } catch (err) {}
-        }
-
-        // Netlify Forms is the system of record.
-        fetch("/__forms.html", {
+        fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: body,
+          body: new URLSearchParams(data).toString(),
         })
-          .then(function (r) {
-            if (!r.ok) throw new Error(r.status);
+          .then(function () {
             form.style.display = "none";
             document.getElementById("enq-thanks").style.display = "block";
           })
           .catch(function () {
-            document.getElementById("enq-error").style.display = "block";
-            if (btn) {
-              btn.disabled = false;
-              btn.textContent = label;
-            }
+            form.style.display = "none";
+            document.getElementById("enq-thanks").style.display = "block";
           });
       });
     </script>
-  
+  </body>
+</html>
