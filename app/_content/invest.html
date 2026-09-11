@@ -2995,6 +2995,7 @@
     align-items: center;
     justify-content: flex-end;
     width: 76px;
+    height: 100%;
   }
   .gv {
     font-family: var(--pop);
@@ -3017,7 +3018,13 @@
   }
   .gbar {
     display: block;
+    flex: none;
     width: 100%;
+    /* --v is the percentage the bar stands for. Sized against the plot area
+       rather than in fixed px, so the bars shrink with .gpair on a phone
+       instead of overflowing upward into the group above. The tallest bar
+       (42) lands at 81.4%, leaving room for the value label on top. */
+    height: calc(var(--v) * 1.938%);
     border-radius: 9px 9px 3px 3px;
     background: #8d9a94;
     box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.06);
@@ -5423,11 +5430,23 @@
       gap: 22px;
     }
     .gpair {
-      height: 158px;
+      height: 200px;
       gap: 18px;
     }
     .gcol {
-      width: 96px;
+      width: 104px;
+    }
+    /* the value labels ride on top of the tallest bar, so they have to come
+       down with the plot area or they push the pair past its height */
+    .gv {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+    .gv.g {
+      font-size: 23px;
+    }
+    .gv.g em {
+      font-size: 14px;
     }
     .gbl {
       font-size: 21px;
@@ -6942,11 +6961,11 @@
           <div class="gpair">
             <div class="gcol">
               <span class="gv">2%</span
-              ><i class="gbar" style="height: 12px"></i>
+              ><i class="gbar" style="--v: 2"></i>
             </div>
             <div class="gcol">
               <span class="gv g">10%</span
-              ><i class="gbar b" style="height: 50px"></i>
+              ><i class="gbar b" style="--v: 10"></i>
             </div>
           </div>
           <div class="gcat">Women Founders</div>
@@ -6955,11 +6974,11 @@
           <div class="gpair">
             <div class="gcol">
               <span class="gv">17%</span
-              ><i class="gbar" style="height: 85px"></i>
+              ><i class="gbar" style="--v: 17"></i>
             </div>
             <div class="gcol">
               <span class="gv g">35%</span
-              ><i class="gbar b" style="height: 175px"></i>
+              ><i class="gbar b" style="--v: 35"></i>
             </div>
           </div>
           <div class="gcat">Solo Founders</div>
@@ -6968,11 +6987,11 @@
           <div class="gpair">
             <div class="gcol">
               <span class="gv">21%</span
-              ><i class="gbar" style="height: 105px"></i>
+              ><i class="gbar" style="--v: 21"></i>
             </div>
             <div class="gcol">
               <span class="gv g">42%</span
-              ><i class="gbar b" style="height: 210px"></i>
+              ><i class="gbar b" style="--v: 42"></i>
             </div>
           </div>
           <div class="gcat">Technical Founders</div>

@@ -352,13 +352,17 @@
         line-height: 1.7;
       }
       @media (max-width: 900px) {
-        .fdr {
+        .fdr,
+        .fdr.rev {
           grid-template-columns: 1fr;
           gap: 36px;
           padding: 64px 0;
         }
         .fdr.rev .fpic {
           order: 0;
+        }
+        .fpic {
+          max-height: none;
         }
         .fstats {
           gap: 34px;
