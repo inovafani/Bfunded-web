@@ -409,13 +409,17 @@
         line-height: 1.7;
       }
       @media (max-width: 900px) {
-        .fdr {
+        .fdr,
+        .fdr.rev {
           grid-template-columns: 1fr;
           gap: 36px;
           padding: 64px 0;
         }
         .fdr.rev .fpic {
           order: 0;
+        }
+        .fpic {
+          max-height: none;
         }
         .fstats {
           gap: 34px;
@@ -573,9 +577,7 @@
       /* ---------- 5b · FIVE TESTS (full screen) ---------- */
       .gates100 {
         background: var(--ink);
-        display: flex;
-        align-items: center;
-        padding: 0;
+        padding: 120px 0;
       }
       .gates100 .wrap {
         width: 100%;
@@ -625,12 +627,24 @@
         margin-left: 12px;
       }
       @media (max-width: 700px) {
+        .gates100 {
+          padding: 92px 0;
+        }
+        .gates {
+          margin-top: 38px;
+        }
         .gate {
           grid-template-columns: 1fr;
-          gap: 8px;
+          gap: 6px;
+          padding: 24px 0;
         }
         .gate .gval {
           text-align: left;
+        }
+        .gate .gval i {
+          display: block;
+          margin-left: 0;
+          margin-top: 7px;
         }
       }
 
@@ -1226,7 +1240,124 @@
 <style>
   /* nav links beside the logo, not centred */
   nav .navmid { margin-left: 40px; margin-right: auto; }
+
+  /* --- mobile menu (not in the design) --- */
+  .navburger,
+  .navdrawer { display: none; }
+
+  @media (max-width: 900px) {
+    .brand { position: relative; z-index: 2; }
+
+    /* the burger is the only control in the collapsed bar -- the CTA would
+       crowd it, and the drawer already carries its own */
+    .navcta { display: none; }
+
+    .navburger {
+      display: flex;
+      order: 3;
+      z-index: 2;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      margin-left: auto;
+      margin-right: -10px;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+    .navburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      margin: 0 auto;
+      border-radius: 2px;
+      background: #fff;
+      transition: transform 0.3s ease, opacity 0.2s ease;
+    }
+    .navburger[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .navburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .navburger[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .navdrawer {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 8vw;
+      background: rgba(8, 13, 9, 0.97);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .navdrawer.open { opacity: 1; visibility: visible; }
+    .navdrawer a {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: "Manrope", sans-serif;
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+    .navdrawer a.ddcta {
+      align-self: flex-start;
+      margin-top: 34px;
+      padding: 14px 30px;
+      border-bottom: 0;
+      border-radius: 999px;
+      background: var(--pill);
+      font-size: 17px;
+      font-weight: 600;
+    }
+  }
 </style>
+<script>
+  // This block is injected above the markup it drives, so it waits.
+  document.addEventListener("DOMContentLoaded", function () {
+    var burger = document.getElementById("navburger");
+    var drawer = document.getElementById("navdrawer");
+    if (!burger || !drawer) return;
+
+    function setOpen(open) {
+      drawer.classList.toggle("open", open);
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+      burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+
+    burger.addEventListener("click", function () {
+      setOpen(burger.getAttribute("aria-expanded") !== "true");
+    });
+
+    // Platform and About are full page loads, but #signup is a same-page jump:
+    // without this the drawer stays sitting over the form it scrolled to.
+    drawer.addEventListener("click", function (ev) {
+      if (ev.target.closest("a")) setOpen(false);
+    });
+
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape") setOpen(false);
+    });
+
+    // Rotating to landscape past the breakpoint hides the drawer by media
+    // query alone -- which would strand the scroll lock with no way to clear it.
+    var wide = window.matchMedia("(min-width: 901px)");
+    var onWide = function (e) { if (e.matches) setOpen(false); };
+    if (wide.addEventListener) wide.addEventListener("change", onWide);
+    else wide.addListener(onWide);
+  });
+</script>
 
 
     <nav id="nav">
@@ -1239,6 +1370,21 @@
       <div class="navmid">
         <a href="/engine">Platform</a>
         <a href="/about">About</a>
+      </div>
+      <button
+        class="navburger"
+        id="navburger"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="navdrawer"
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <div class="navdrawer" id="navdrawer">
+        <a href="/engine">Platform</a>
+        <a href="/about">About</a>
+        <a class="ddcta" href="#signup">Get Started</a>
       </div>
       <a class="navcta" href="#signup"
         >Get Started
