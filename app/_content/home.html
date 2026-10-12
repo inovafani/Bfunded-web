@@ -1965,14 +1965,12 @@
       // form
       //
       // Two changes from the design file, both deliberate:
-      //  1. It posted to "/" -- on Netlify's Next runtime that just returns the
-      //     prerendered page, so submissions were silently lost. Netlify Forms
-      //     is reached through /__forms.html (declared in public/__forms.html).
+      //  1. It posted to "/" -- which just returns the prerendered page, so
+      //     submissions were silently lost. It now posts to /api/waitlist,
+      //     which stores the row and mirrors it to the Google Sheet.
       //  2. It showed the thank-you on .catch() as well, so a failed submission
       //     looked successful. Failures now say so.
       var form = document.getElementById("enq-form");
-      var sheetsMeta = document.querySelector('meta[name="bf-sheets-endpoint"]');
-      var sheetsUrl = sheetsMeta && sheetsMeta.getAttribute("content");
 
       form.addEventListener("submit", function (ev) {
         ev.preventDefault();
@@ -1986,27 +1984,11 @@
 
         var data = new FormData(form);
         data.append("source", location.pathname);
-        var body = new URLSearchParams(data).toString();
 
-        // Mirror to the Google Sheet (row + email). Fire-and-forget: no-cors
-        // means the reply is unreadable, and a Sheets outage must never block
-        // the real submission.
-        if (sheetsUrl) {
-          try {
-            fetch(sheetsUrl, {
-              method: "POST",
-              mode: "no-cors",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: body,
-            }).catch(function () {});
-          } catch (err) {}
-        }
-
-        // Netlify Forms is the system of record.
-        fetch("/__forms.html", {
+        fetch("/api/waitlist", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: body,
+          body: new URLSearchParams(data).toString(),
         })
           .then(function (r) {
             if (!r.ok) throw new Error(r.status);

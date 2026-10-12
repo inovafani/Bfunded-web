@@ -16,7 +16,7 @@ export async function requireAdmin() {
       deny: NextResponse.json(
         {
           error:
-            'SUPABASE_SERVICE_ROLE_KEY is not set on this deploy. Add it in Netlify under Site configuration → Environment variables, then redeploy.',
+            'SUPABASE_SERVICE_ROLE_KEY is not set on this deploy. Add it in Vercel under Project Settings → Environment Variables, then redeploy.',
         },
         { status: 503 },
       ),

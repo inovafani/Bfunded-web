@@ -26,11 +26,11 @@ It keeps the design byte-for-byte except for three things it must change:
      design gives `padding: 0`, which works solely because the >=900px snap
      rules hand it a 100vh flex box. Below that it collapses onto its own
      content and sits flush under the nav.
-  7. The submit handler. The design posts to "/" -- which on Netlify's Next
-     runtime just returns the prerendered page, losing the submission -- and
-     shows the thank-you from .catch() as well, so failures look like successes.
-     It is repointed at /__forms.html (Netlify Forms) with a fire-and-forget
-     mirror to the Google Apps Script endpoint, and real success/failure states.
+  7. The submit handler. The design posts to "/" -- which just returns the
+     prerendered page, losing the submission -- and shows the thank-you from
+     .catch() as well, so failures look like successes. It is repointed at
+     /api/waitlist (app/api/waitlist/route.ts, which stores the row and mirrors
+     it to the Google Apps Script endpoint) with real success/failure states.
 
 Verify after running:  npm run build && npm start, then compare against
 public/contoh/home-new-3.html.
@@ -49,14 +49,12 @@ SCRIPT = re.compile(r'<script[^>]*>.*?</script\s*>', re.S)
 SUBMIT_HANDLER = '''      // form
       //
       // Two changes from the design file, both deliberate:
-      //  1. It posted to "/" -- on Netlify's Next runtime that just returns the
-      //     prerendered page, so submissions were silently lost. Netlify Forms
-      //     is reached through /__forms.html (declared in public/__forms.html).
+      //  1. It posted to "/" -- which just returns the prerendered page, so
+      //     submissions were silently lost. It now posts to /api/waitlist,
+      //     which stores the row and mirrors it to the Google Sheet.
       //  2. It showed the thank-you on .catch() as well, so a failed submission
       //     looked successful. Failures now say so.
       var form = document.getElementById("enq-form");
-      var sheetsMeta = document.querySelector('meta[name="bf-sheets-endpoint"]');
-      var sheetsUrl = sheetsMeta && sheetsMeta.getAttribute("content");
 
       form.addEventListener("submit", function (ev) {
         ev.preventDefault();
@@ -70,27 +68,11 @@ SUBMIT_HANDLER = '''      // form
 
         var data = new FormData(form);
         data.append("source", location.pathname);
-        var body = new URLSearchParams(data).toString();
 
-        // Mirror to the Google Sheet (row + email). Fire-and-forget: no-cors
-        // means the reply is unreadable, and a Sheets outage must never block
-        // the real submission.
-        if (sheetsUrl) {
-          try {
-            fetch(sheetsUrl, {
-              method: "POST",
-              mode: "no-cors",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: body,
-            }).catch(function () {});
-          } catch (err) {}
-        }
-
-        // Netlify Forms is the system of record.
-        fetch("/__forms.html", {
+        fetch("/api/waitlist", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: body,
+          body: new URLSearchParams(data).toString(),
         })
           .then(function (r) {
             if (!r.ok) throw new Error(r.status);
@@ -455,7 +437,7 @@ def main():
     print(f'  mobile menu           : hamburger + drawer added')
     print(f'  founder cards         : .fdr.rev stacks below 900px')
     print(f'  five tests            : mobile padding + row rhythm')
-    print(f'  submit handler        : repointed at /__forms.html + Sheets mirror')
+    print(f'  submit handler        : repointed at /api/waitlist')
 
 
 if __name__ == '__main__':

@@ -51,12 +51,11 @@ cp .env.example .env.local
 npm run dev
 ```
 
-### On Netlify
+### On Vercel
 
-Site configuration → **Environment variables** → add all three → **Deploys →
-Trigger deploy → Clear cache and deploy site**. The first two are baked into
-the build, so a redeploy is required; changing them does not take effect on its
-own.
+Project Settings → **Environment Variables** → add all three → **Deployments →
+⋯ → Redeploy**. The first two are baked into the build, so a redeploy is
+required; changing them does not take effect on its own.
 
 ## 4. Create the admin account
 
@@ -158,6 +157,6 @@ Storage → `blog-media` → Settings → Public bucket → on. (Re-running
 **A published article is not on /blog** — its publish date is in the future.
 Open it and check the Publishing panel.
 
-**Everything works locally and nothing works on Netlify** — the environment
+**Everything works locally and nothing works on Vercel** — the environment
 variables were added but the site was not redeployed. `NEXT_PUBLIC_*` values
 are compiled into the build.

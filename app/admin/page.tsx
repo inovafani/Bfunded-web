@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 async function loadPosts(): Promise<{ posts: AdminPostRow[]; error: string | null }> {
   if (!isAdminConfigured()) {
-    return { posts: [], error: 'SUPABASE_SERVICE_ROLE_KEY is not set on this deploy. Add it in Netlify under Site configuration → Environment variables, then redeploy.' };
+    return { posts: [], error: 'SUPABASE_SERVICE_ROLE_KEY is not set on this deploy. Add it in Vercel under Project Settings → Environment Variables, then redeploy.' };
   }
 
   const { data, error } = await createAdminClient()

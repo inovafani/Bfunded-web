@@ -152,3 +152,32 @@ insert into public.categories (slug, name, description, sort_order) values
   ('founder-playbook',   'Founder Playbook',    'What separates founders who close.',       4),
   ('product-updates',    'Product Updates',     'What is new inside BFunded.',              5)
 on conflict (slug) do nothing;
+
+-- ---------------------------------------------------------------------------
+-- waitlist_submissions
+-- ---------------------------------------------------------------------------
+-- The "Join the Network" form on / posts to /api/waitlist, which inserts here
+-- with the service-role key. RLS is on with no policies, so the anon key can
+-- neither read nor write it -- these rows hold emails and IP addresses.
+-- View them in Supabase: Table Editor -> waitlist_submissions (CSV export
+-- is in the toolbar).
+create table if not exists public.waitlist_submissions (
+  id          uuid primary key default gen_random_uuid(),
+  role        text not null check (role in ('Founder', 'Investor')),
+  name        text not null,
+  email       text not null,
+  company     text,           -- Founder
+  url         text,           -- Founder
+  firm        text,           -- Investor
+  focus       text,           -- Investor
+  source      text,           -- page path the form was submitted from
+  ip          text,
+  user_agent  text,
+  referrer    text,
+  created_at  timestamptz not null default now()
+);
+
+create index if not exists waitlist_submissions_created_idx
+  on public.waitlist_submissions (created_at desc);
+
+alter table public.waitlist_submissions enable row level security;

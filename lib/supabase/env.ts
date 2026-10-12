@@ -9,7 +9,7 @@ function required(name: string, value: string | undefined): string {
     throw new Error(
       `Missing environment variable ${name}. Copy .env.example to .env.local ` +
         `and fill it from your Supabase project (Settings -> API). ` +
-        `On Netlify, add it under Site configuration -> Environment variables.`,
+        `On Vercel, add it under Project Settings -> Environment Variables.`,
     );
   }
   return value;

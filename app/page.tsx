@@ -41,11 +41,6 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const html = loadContent('home');
-  // Optional Google Apps Script endpoint. The waitlist form reads this meta tag
-  // and mirrors each submission to a Google Sheet (which also emails the team).
-  // Unset = the form still works; it just skips the mirror.
-  const sheetsEndpoint = process.env.NEXT_PUBLIC_SHEETS_ENDPOINT;
-
   // Google reads the site name shown under search results from WebSite
   // structured data on the homepage. Without it, it falls back to whatever it
   // inferred before -- which is why results were still labelled "Webflow".
@@ -81,9 +76,6 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {sheetsEndpoint ? (
-        <meta name="bf-sheets-endpoint" content={sheetsEndpoint} />
-      ) : null}
       {/* The redesign is self-contained: its own <style> block ships inside the
           markup, so the only thing needed here is the font it was drawn with.
           Webflow's stylesheet and Font Awesome are gone with the old design. */}

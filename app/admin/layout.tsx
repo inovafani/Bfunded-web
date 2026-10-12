@@ -3,7 +3,7 @@ import './admin.css';
 
 export const metadata: Metadata = {
   title: 'BFunded CMS',
-  // The CMS must never be indexed. The X-Robots-Tag in netlify.toml covers the
+  // The CMS must never be indexed. The X-Robots-Tag in vercel.json covers the
   // same ground at the edge; this covers it for anything that renders the page.
   robots: { index: false, follow: false, nocache: true },
 };

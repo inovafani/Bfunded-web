@@ -6,7 +6,7 @@ import { SITE_URL } from '@/lib/site';
 // search results to avoid indexing duplicate copies of the real pages.
 //
 // /admin and /api are the CMS. Nothing there should ever be crawled; the
-// noindex metadata and the netlify.toml header cover the same ground for
+// noindex metadata and the vercel.json header cover the same ground for
 // anything that ignores robots.txt.
 export default function robots(): MetadataRoute.Robots {
   return {

@@ -29,7 +29,7 @@
  *   "Script function not found"  -> code still wrapped, or old version deployed
  *   "Akses Ditolak" / login page -> access is not set to "Anyone"
  *
- * The site posts these fields (see app/_content/home.html):
+ * /api/waitlist (app/api/waitlist/route.ts) posts these fields, server-side:
  *   role, name, email, company, url, firm, focus, source
  * `role` is Founder or Investor and decides which half is filled in:
  *   Founder  -> company, url
@@ -80,8 +80,9 @@ function doPost(e) {
     notify_(p);
     return json_({ ok: true });
   } catch (err) {
-    // Never surface a 500: the site sends this fire-and-forget and Netlify Forms
-    // holds a copy. Check View -> Executions in the editor for details.
+    // Never surface a 500: /api/waitlist also stores a copy in Supabase, so a
+    // failure here is reported in the JSON body instead. Check View ->
+    // Executions in the editor for details.
     console.error(err);
     return json_({ ok: false, error: String(err) });
   } finally {
